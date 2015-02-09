@@ -1,0 +1,24 @@
+{
+  "name": "react-playground",
+  "version": "0.0.0",
+  "authors": [
+    "Graham Clapham <graham.clapham@thomsonreuters.com>"
+  ],
+  "description": "react experiment",
+  "keywords": [
+    "react"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.12.2"
+  }
+}

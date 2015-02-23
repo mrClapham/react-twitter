@@ -9,7 +9,11 @@
     "react": "^0.12.2",
     "watchify": "^2.3.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.4.0",
+    "grunt-contrib-watch": "^0.6.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -6,9 +6,6 @@ var concat = require('gulp-concat');
 var less = require('gulp-less');
 var path = require('path');
 
-
-
-
 gulp.task('browserify', function(){
     gulp.src('src/js/main.js')
         .pipe(plumber())
@@ -30,7 +27,7 @@ gulp.task('less', function () {
         .pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('default', ['browserify', 'copy']);
+gulp.task('default', ['browserify', 'copy', 'less']);
 
 
 gulp.task('watch', function(){

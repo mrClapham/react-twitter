@@ -3,8 +3,25 @@ var React = require('react');
 
 var APP =
     React.createClass({
+        proptypes:{
+            txt:React.PropTypes.string
+        },
+        getDefaultProps:function(){
+            return {txt:'default txt'}
+        },
+        getInitialState:function(){
+            return { txt: "this is the initial state.",
+            id:0
+            }
+        },
+        update:function(){
+            this.setState({txt: e.target.value})
+        },
+
         render:function(){
-            return <h1>My App </h1>
+            //get the value form the inline props...
+            var txt = this.props.txt
+            return <h1>My App {txt}</h1>
         }
     });
 

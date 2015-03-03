@@ -4,6 +4,7 @@ var React = require('react');
 
 
 React.renderComponent(
-    <APP />,
+    <APP  />,
     document.getElementById("main")
 );
+

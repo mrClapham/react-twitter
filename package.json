@@ -23,7 +23,7 @@
     },
     "devDependencies": {
         "connect-livereload": "^0.5.3",
-        "gulp-livereload": "*3.8.0",
+        "gulp-livereload": "*3.8.0"
     },
     "scripts": {
         "postinstall": "bower cache clean && bower install && gulp",

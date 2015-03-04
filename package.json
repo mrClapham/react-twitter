@@ -19,11 +19,12 @@
         "gulp-plumber": "*0.6.6",
         "reactify": "*1.0.0",
         "tiny-lr": "*0.1.5",
-        "bootstrap": "*3.3.2"
-    },
-    "devDependencies": {
+        "bootstrap": "*3.3.2",
         "connect-livereload": "^0.5.3",
         "gulp-livereload": "*3.8.0"
+    },
+    "devDependencies": {
+
     },
     "scripts": {
         "postinstall": "bower cache clean && bower install && gulp",

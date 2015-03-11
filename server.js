@@ -17,4 +17,4 @@ server.all('/*', function(req, res) {
     res.sendFile('index.html', { root: 'dist' });
 });
 
-server.listen(serverport);
+server.listen(process.env.PORT || serverport)

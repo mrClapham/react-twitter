@@ -1,10 +1,10 @@
 {
-  "name": "react-playground",
+  "name": "react-seed",
   "version": "0.0.0",
   "authors": [
     "Graham Clapham <graham.clapham@thomsonreuters.com>"
   ],
-  "description": "react experiment",
+  "description": "react seed",
   "keywords": [
     "react"
   ],
@@ -21,5 +21,5 @@
   "dependencies": {
     "react": "*0.12.2"
   },
-  "homepage": "https://github.com/mrClapham/react-playground"
+  "homepage": "https://github.com/mrClapham/react-seed"
 }

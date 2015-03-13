@@ -24,6 +24,7 @@
     "watchify": "*2.3.0"
   },
   "devDependencies": {
+    "flux": "^2.0.1",
     "jasmine-core": "^2.2.0",
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.7",

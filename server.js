@@ -1,10 +1,21 @@
 var embedlr = require('gulp-embedlr'),
-    refresh = require('gulp-livereload'),
+    http = require('http'),
+
+refresh = require('gulp-livereload'),
     lrserver = require('tiny-lr')(),
     express = require('express'),
     livereload = require('connect-livereload'),
+    Twit = require('twit'),
     livereloadport = 35729,
     serverport = 5000;
+
+
+var T = new Twit({
+    consumer_key: 'OEiqpRWDB5vm2pHu6VgdwKLh3',
+    consumer_secret: '8xeCtv3P1mxSbFV43JwHIYInBtJgxovjGFb93g5FVPjtaUZ65L',
+    access_token: "35851807-GvCv0ELgvcQZM8hHTyBk9PIsLxDVz8oGtDXkzqdoI",
+    access_token_secret: "5NGzACdkgObGDLSAJKLShDYx3jdBn3UzGn8vKU3hFOuda"
+});
 
 // Set up an express server (but not starting it yet)
 var server = express();
@@ -18,3 +29,4 @@ server.all('/*', function(req, res) {
 });
 
 server.listen(process.env.PORT || serverport);
+

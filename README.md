@@ -1,4 +1,5 @@
-# react-playground
-Getting to grips with react
+# react-twitter
+A Twitter app using React
 
 based on my React App Seed [https://github.com/mrClapham/react-seed](https://github.com/mrClapham/react-seed).
+

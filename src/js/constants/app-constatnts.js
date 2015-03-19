@@ -1,3 +1,3 @@
-/**
- * Created by grahamclapham on 19/03/15.
- */
+module.exports = {
+    STATE_CHANGE:"stateChange"
+}

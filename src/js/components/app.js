@@ -1,4 +1,4 @@
-/** @jsx Ract.DOM */
+/** @jsx React.DOM */
 var React = require('react');
 
 var APP =

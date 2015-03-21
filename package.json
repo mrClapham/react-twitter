@@ -20,7 +20,7 @@
     "gulp-livereload": "*3.8.0",
     "gulp-plumber": "*0.6.6",
     "react": "*0.12.2",
-    "react-async": "^2.0.1",
+    "react-async": "*0.8.0",
     "react-router-component": "^0.24.2",
     "reactify": "*1.0.0",
     "tiny-lr": "*0.1.5",

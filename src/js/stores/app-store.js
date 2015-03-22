@@ -15,8 +15,11 @@ var _testData = [
 
 var _innerCount = 3;
 
+AppDispatcher.register(function(payload){
 
-console.log("STOR INIT")
+})
+
+console.log("STOR INIT ",AppDispatcher)
 
 var _increaseCount = function(value){
     _innerCount += value;
@@ -35,14 +38,41 @@ var AppStore = merge(EventEmmitter.prototype, {
     },
     getTestData:function(){
         return _testData
-    }
+    },
+    dt:AppDispatcher.register(function(payload){
+
+        console.log("PAYLOAD ", payload)
+                var action = payload.action;
+                switch(action.actionType){
+                    case AppConstatnts.TEST_CHANGED :
+                        _increaseCount(payload.value)
+                    break;
+
+        }
+        AppStore.emitChange();
+        return true;
+    })
 })
-console.log(AppDispatcher)
-
-
-AppDispatcher.register(function(payload) {
-    console.log(payload)
-});
-
 
 module.exports = AppStore;
+
+
+/*
+
+
+
+ ,
+ dt:AppDispatcher.register(function(payload){
+
+ console.log("PAYLOAD ")
+ //        var action = payload.action;
+ //        switch(action.actionType){
+ //            case AppConstatnts.TEST_CHANGED :
+ //                _increaseCount(payload.value)
+ //            break;
+
+ // }
+ //AppStore.emitChange();
+ return true;
+ })
+ */

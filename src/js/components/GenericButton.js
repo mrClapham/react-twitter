@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
-var AppActions = require("../actions/app-actions.js");
+var AppActions = require("../actions/app-actions");
+var Store = require("../stores/app-store");
 
 var GenericButton = React.createClass({
     proptypes:{},

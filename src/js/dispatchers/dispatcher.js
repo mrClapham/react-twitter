@@ -1,4 +1,4 @@
-var Promise = require('es6-promises').Promise;
+var Promise = require('es6-promises').promise;
 var assign = require('object-assign');
 
 var _callbacks = [];

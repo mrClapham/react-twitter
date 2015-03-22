@@ -3,12 +3,10 @@ var AppDispatcher = require("../dispatchers/app-dispatcher")
 
 var AppActions = {
     testAction:function(value){
-        console.log("function fired");
-        AppDispatcher.handleViewAction({actionType:AppConstants.STATE_CHANGE, payload:value})
+        AppDispatcher.handleViewAction({actionType:AppConstants.TEST_CHANGED, value:value})
     },
     testAction2:function(value){
-        console.log("function fired");
-        AppDispatcher.handleViewAction({actionType:AppConstants.STATE_CHANGE, payload:value})
+        AppDispatcher.handleViewAction({actionType:AppConstants.STATE_CHANGE, value:value})
     }
 
 }

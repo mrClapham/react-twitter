@@ -15,11 +15,6 @@ var _testData = [
 
 var _innerCount = 3;
 
-AppDispatcher.register(function(payload){
-
-})
-
-console.log("STOR INIT ",AppDispatcher)
 
 var _increaseCount = function(value){
     _innerCount += value;
@@ -38,6 +33,9 @@ var AppStore = merge(EventEmmitter.prototype, {
     },
     getTestData:function(){
         return _testData
+    },
+    getInnerCount:function(){
+        return _innerCount;
     },
     dt:AppDispatcher.register(function(payload){
 

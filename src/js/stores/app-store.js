@@ -45,9 +45,8 @@ var AppStore = merge(EventEmmitter.prototype, {
                 var action = payload.action;
                 switch(action.actionType){
                     case AppConstatnts.TEST_CHANGED :
-                        _increaseCount(payload.value)
+                        _increaseCount(action.value)
                     break;
-
         }
         AppStore.emitChange();
         return true;

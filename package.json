@@ -19,6 +19,7 @@
     "gulp-less": "*3.0.1",
     "gulp-livereload": "*3.8.0",
     "gulp-plumber": "*0.6.6",
+    "object-assign": "*2.0.0",
     "react": "*0.12.2",
     "react-async": "*2.0.0",
     "react-router-component": "*0.24.2",

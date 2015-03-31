@@ -8,9 +8,11 @@ var APP =
             txt:React.PropTypes.string,
             count:React.PropTypes.number
         },
+        // The props are set not to change
         getDefaultProps:function(){
-            return {txt:'default txt', count:22}
+            return {propTxt:'default txt', count:22}
         },
+        // The state is mutable and takes
         getInitialState:function(){
             return { txt: "this is the initial state.",
             count: AppStore.getInnerCount(),
@@ -21,18 +23,12 @@ var APP =
             AppStore.addChangeListener(this._onChange)
         },
         _onChange:function(){
-            console.log("CHANGE ------------------- ", AppStore.getInnerCount())
             this.setState({count: AppStore.getInnerCount()})
         },
-        update:function(){
-            this.setState({txt: e.target.value})
-            this.setState({count: AppStore.getInnerCount()})
-        },
-
         render:function(){
             //get the value form the inline props...
             var txt = this.props.txt
-            return <h1>My App: {txt} {this.state.count}</h1>
+            return <h3>My App: {this.state.txt} {this.state.count}</h3>
         }
     });
 

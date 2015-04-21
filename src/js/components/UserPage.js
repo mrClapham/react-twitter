@@ -11,7 +11,6 @@ var UserPage = React.createClass({
     render:function(){
         return <div class="main-page">HELLO I AM THE USER PAGE</div>
     }
-
 })
 
 

@@ -5,6 +5,9 @@ var browserify = require('gulp-browserify');
 var concat = require('gulp-concat');
 var less = require('gulp-less');
 var path = require('path');
+var livereload  = require('gulp-livereload')
+
+
 
 gulp.task('browserify', function(){
     gulp.src('src/js/main.js')
@@ -24,12 +27,18 @@ gulp.task('less', function () {
         .pipe(less({
             paths: [ path.join(__dirname, 'less', 'includes') ]
         }))
-        .pipe(gulp.dest('./dist/css'));
+        .pipe(gulp.dest('./dist/css'))
+        .pipe(livereload());
+
 });
 
-gulp.task('default', ['browserify', 'copy', 'less']);
+//Live reload
+
+
+gulp.task('default', ['browserify', 'copy', 'less', 'watch']);
 
 
 gulp.task('watch', function(){
+    livereload.listen();
     gulp.watch('src/**/*.*', ['default']);
 });

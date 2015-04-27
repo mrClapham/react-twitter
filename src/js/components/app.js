@@ -1,27 +1,34 @@
-/** @jsx Ract.DOM */
+/** @jsx React.DOM */
 var React = require('react');
+var AppStore = require('../stores/app-store')
 
 var APP =
     React.createClass({
         proptypes:{
-            txt:React.PropTypes.string
+            txt:React.PropTypes.string,
+            count:React.PropTypes.number
         },
+        // The props are set not to change
         getDefaultProps:function(){
-            return {txt:'default txt'}
+            return {propTxt:'default txt', count:22}
         },
+        // The state is mutable and takes
         getInitialState:function(){
             return { txt: "this is the initial state.",
+            count: AppStore.getInnerCount(),
             id:0
             }
         },
-        update:function(){
-            this.setState({txt: e.target.value})
+        componentWillMount:function(){
+            AppStore.addChangeListener(this._onChange)
         },
-
+        _onChange:function(){
+            this.setState({count: AppStore.getInnerCount()})
+        },
         render:function(){
             //get the value form the inline props...
             var txt = this.props.txt
-            return <h1>My App {txt}</h1>
+            return <h3>My App: {this.state.txt} {this.state.count}</h3>
         }
     });
 

@@ -4,7 +4,8 @@
 var APP                 = require('./components/app');
 var GenericButton       = require('./components/GenericButton');
 var DashBoard           = require('./components/DashBoard');
-var MainApp           = require('./components/MainApp');
+var MainApp             = require('./components/MainApp');
+var TwitterComponent    = require('./components/twitter/TwitterComponent');
 
 var React               = require('react');
 var Flux                = require('flux');
@@ -25,6 +26,10 @@ React.render(
     <DashBoard  />,
     document.getElementById("dash")
 );
+
+React.render(
+    <TwitterComponent />, document.getElementById('twitter')
+)
 
 //React.render(
 //    <MainApp  />,

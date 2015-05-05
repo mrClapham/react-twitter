@@ -41,14 +41,20 @@
   },
   "jest": {
     "rootDir": "src",
-    "scriptPreprocessor": "<rootDir>/preprocessor.js",
-    "unmockedModulePathPatterns": ["react"]
+    "scriptPreprocessor": "./src/preprocessor.js",
+    "rootDir": "src",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "unmockedModulePathPatterns": [
+      "./node_modules/react"
+    ]
   },
   "engines": {
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "./node_modules/jest-cli/bin/jest.js",
+    "test": "jest-cli/bin/jest.js",
     "postinstall": "bower cache clean && bower install && gulp",
     "start": "node server.js"
   },

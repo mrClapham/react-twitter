@@ -6,6 +6,7 @@ var GenericButton       = require('./components/GenericButton');
 var DashBoard           = require('./components/DashBoard');
 var MainApp             = require('./components/MainApp');
 var TwitterComponent    = require('./components/twitter/TwitterComponent');
+var flickerApi          = require('./utils/FlickerApi');
 
 var React               = require('react');
 var Flux                = require('flux');
@@ -35,6 +36,7 @@ React.render(
 //    <MainApp  />,
 //    document.getElementById("main-app")
 //);
+flickerApi.getFlickr();
 
 React.renderComponent(React.createElement(MainApp), document.getElementById("main-app") );
 

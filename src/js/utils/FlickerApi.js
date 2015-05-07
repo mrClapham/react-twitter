@@ -2,6 +2,7 @@ var superagent = require('superagent');
 var jsonp= require('jsonp');
 
 var twitterMethod = "http://flickr.people.getPublicPhotos"
+var twitterMethod = "https://api.flickr.com/services/rest"
 
 var twitterConfig = {
     format: 'json',

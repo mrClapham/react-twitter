@@ -8,6 +8,8 @@ var MainApp             = require('./components/MainApp');
 var TwitterComponent    = require('./components/twitter/TwitterComponent');
 var flickerApi          = require('./utils/FlickrApi');
 
+var FlikrComponent      = require('./components/flikr/FlikrComponent')
+
 var React               = require('react');
 var Flux                = require('flux');
 
@@ -29,6 +31,10 @@ React.render(
 
 React.render(
     <TwitterComponent />, document.getElementById('twitter')
+)
+
+React.render(
+    <FlikrComponent />, document.getElementById('flikr')
 )
 
 //React.render(

@@ -1,6 +1,8 @@
 var AppDispatcher = require("../dispatchers/app-dispatcher");
 var AppConstatnts = require("../constants/app-constatnts");
 var merge = require("react/lib/merge");
+var assign = require('object-assign');
+
 var EventEmmitter = require("events").EventEmitter;
 
 var CHANGE_EVENT = "changeEvenet";
@@ -15,13 +17,12 @@ var _testData = [
 
 var _innerCount = 3;
 
-
 var _increaseCount = function(value){
     _innerCount += value;
     console.log(_innerCount);
 }
 
-var AppStore = merge(EventEmmitter.prototype, {
+var AppStore = assign({}, EventEmmitter.prototype, {
     emitChange:function(){
         this.emit(CHANGE_EVENT)
     },
@@ -39,7 +40,7 @@ var AppStore = merge(EventEmmitter.prototype, {
     },
     dt:AppDispatcher.register(function(payload){
 
-        console.log("PAYLOAD ", payload)
+        console.log("PAYLOAD -----", payload)
                 var action = payload.action;
                 switch(action.actionType){
                     case AppConstatnts.TEST_CHANGED :

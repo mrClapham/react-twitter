@@ -24,5 +24,5 @@ FlickerApi = {
         });
     }
 }
-
+git pull origin
 module.exports = FlickerApi;

@@ -16,7 +16,7 @@ var FLIKR_CHANGE_EVENT = "FlikrchangeEvenet";
 var api_key = 'd23e3c81ed9f44cac507a5cbd80ea12c',
     user_id = '123487996@N08'
 
-var _flickrStandardRestMethod = "http://api.flickr.com/services/rest";
+var _flickrStandardRestMethod = "https://api.flickr.com/services/rest";
 var publicPhotosMethod = "flickr.people.getPublicPhotos";
 
 var _page = 1;

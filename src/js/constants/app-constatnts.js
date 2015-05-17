@@ -7,5 +7,6 @@ module.exports = {
     FLICKR_STORE_UPDATED: "flikrStoreUpdated",
     FLIKR_RESULT_CHANGED:"flickerResultChanged",
     FLIKR_GALLERY_COLLECTION_CHANGED:"flickerGalleryCollectionChanged",
+    FLIKR_GALLERY_CHANGING:"flikrGalleryChanging",
     FLIKR_GALLERY_CHANGED:"flickerGalleryChanged"
 }

@@ -85,6 +85,10 @@ var FlickrCell = React.createClass({
         this.setState({
             flikrdata: this.props.flikrdata
         });
+        Store.addChangeListener(function(){
+            Store.getGalletyLoading() ? console.log("LOADING ______") : console.log("Done ______");
+
+        })
     },
     componentWillReceiveProps:function(newVal){
         console.log("Receiving props in the image -- newval", newVal)
@@ -94,7 +98,7 @@ var FlickrCell = React.createClass({
     },
     render:function(){
         return (
-            <li>
+            <li className={Store.getGalletyLoading() ? 'flikr-cell loading-gallery' : 'flikr-cell loaded-gallery'}>
                 <p>{this.state.flikrdata.latitude}</p>
                 <p>{this.state.flikrdata.url_sq}</p>
                 <img src={this.state.flikrdata.url_sq} />
@@ -121,6 +125,9 @@ var FlikrComponent = React.createClass({
     },
     componentWillMount:function(){
         Store.addChangeListener(this._onStoreChange)
+    },
+    componentDidMount:function(){
+        Store.loadPublicGalleries();
     },
     _onStoreChange:function(){
             console.log('XXXXAAAAA The on change event is firing..... ')
@@ -164,8 +171,6 @@ var FlikrComponent = React.createClass({
             </CaptureClicks>
             <ul>
                 {results.map(function(result, ind) {
-                    console.log(">>>>>>>>>>>> PAssing result ",result)
-
                     return <FlickrCell flikrdata={result} key={ind} />
                 })
             }
@@ -173,7 +178,6 @@ var FlikrComponent = React.createClass({
         </div>)
     }
 })
-
 // --- the galleries
 
 var FlikrGalleries = React.createClass({

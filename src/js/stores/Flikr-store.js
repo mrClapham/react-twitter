@@ -18,6 +18,9 @@ var api_key = 'd23e3c81ed9f44cac507a5cbd80ea12c',
 
 var _flickrStandardRestMethod = "https://api.flickr.com/services/rest";
 var publicPhotosMethod = "flickr.people.getPublicPhotos";
+var publicGalleriesSetsMethod = "flickr.collections.getTree";
+var publicGalleriesMethod = "flickr.photosets.getList";
+var publicGalleriesGetPhotosMethod = "flickr.photosets.getPhotos";
 
 var _page = 1;
 var _perPage = 30;
@@ -33,8 +36,33 @@ var _flickrConfigPublicPhotos = {
     extras : 'date_upload, date_taken, owner_name, icon_server, original_format, last_update, geo, tags, machine_tags, o_dims, views, media, path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o',
 }
 
+var _flickrConfigPublicGalleriesCollection = {
+    method: publicGalleriesSetsMethod,
+    format: 'json',
+    api_key : api_key,
+    user_id: user_id,
+}
 
-var _publicGallery = [];
+
+var _flickrConfigPublicGalleries = {
+    method: publicGalleriesMethod,
+    format: 'json',
+    api_key : api_key,
+    user_id: user_id,
+}
+
+var _flickrConfigPublicGalleriesGetPhotos = {
+    method: publicGalleriesGetPhotosMethod,
+    format: 'json',
+    api_key : api_key,
+    user_id: user_id,
+}
+
+
+var _publicPhotosAll = [];
+var _publicGalleryPhotos = []
+var _publicGalleries = [];
+var _publicGalleryCollections = [];
 
 
 var FlikrStore = assign({}, EventEmmitter.prototype, {
@@ -48,7 +76,10 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
         this.removeListener(FLIKR_CHANGE_EVENT, callback);
     },
     getFlikrPublicPhotos:function(){
-        return _publicGallery
+        return _publicPhotosAll
+    },
+    getPublicGalleries: function(){
+        return _publicGalleries;
     },
     onFlikrGalleryChanged:function(value){
 
@@ -59,18 +90,47 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     loadPublicPhotos:function(){
         JSONP(_flickrStandardRestMethod,_flickrConfigPublicPhotos,'jsoncallback',function(json){
             console.log("Store Function func ",json);
-            _publicGallery = json.photos.photo;
-            AppDispatcher.handleViewAction(AppConstatnts.FLIKR_RESULT_CHANGED, json)
+            _publicPhotosAll = json.photos.photo;
+            AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
             return json;
         });
     },
-    dt:AppDispatcher.register(function(payload){
+    loadPublicGalleriesCollections:function(){
+        JSONP(_flickrStandardRestMethod,_flickrConfigPublicGalleriesCollection,'jsoncallback',function(json){
+            console.log("Store Function Galleries List",json);
+            _publicGalleryCollections = json.collections.collection;
+            AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
+            return json;
+        });
+    },
+     loadPublicGalleries:function(){
+        JSONP(_flickrStandardRestMethod,_flickrConfigPublicGalleries,'jsoncallback',function(json){
+            console.log(">>>>Store Function Galleries ",json);
+            _publicGalleries = json.photosets.photoset;
+            AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
+            return json;
+        });
+    },
 
+    loadPublicGalleriesGetImages:function(id){
+        _flickrConfigPublicGalleriesGetPhotos.photoset_id = id
+        JSONP(_flickrStandardRestMethod,_flickrConfigPublicGalleriesGetPhotos,'jsoncallback',function(json){
+            console.log(">>>>Store Function Galleries Get Images ",json);
+            _publicGalleryPhotos = json.photos.photo;
+            AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
+            return json;
+        });
+    },
+
+    dt:AppDispatcher.register(function(payload){
         console.log("FLIKR_PAYLOAD -----", payload)
         var action = payload.action;
         switch(action.actionType){
             case AppConstatnts.FLIKR_RESULT_CHANGED :
-                onFlikrReultChanged(action.value)
+                onFlikrResultChanged(action.value)
+                break;
+            case AppConstatnts.FLIKR_GALLERY_CHANGED :
+                onFlikrGalleryChanged(action.value)
                 break;
         }
         FlikrStore.emitChange();

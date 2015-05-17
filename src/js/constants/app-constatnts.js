@@ -4,5 +4,8 @@ module.exports = {
     TEST_CHANGED:"testChanged",
     TWITTER_SEARCH_TERM_CHANGED:"twitterSearchTermChanged",
     TWITTER_RESULT_CHANGED:"twitterResultChanged",
-    FLIKR_RESULT_CHANGED:"twitterResultChanged"
+    FLICKR_STORE_UPDATED: "flikrStoreUpdated",
+    FLIKR_RESULT_CHANGED:"flickerResultChanged",
+    FLIKR_GALLERY_COLLECTION_CHANGED:"flickerGalleryCollectionChanged",
+    FLIKR_GALLERY_CHANGED:"flickerGalleryChanged"
 }

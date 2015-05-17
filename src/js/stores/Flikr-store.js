@@ -33,14 +33,14 @@ var _flickrConfigPublicPhotos = {
     per_page : _perPage,
     page: _page,
     min_taken_date : "2005-01-01 00:00:00",
-    extras : 'date_upload, date_taken, owner_name, icon_server, original_format, last_update, geo, tags, machine_tags, o_dims, views, media, path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o',
+    extras : 'date_upload, date_taken, owner_name, icon_server, original_format, last_update, geo, tags, machine_tags, o_dims, views, media, path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o'
 }
 
 var _flickrConfigPublicGalleriesCollection = {
     method: publicGalleriesSetsMethod,
     format: 'json',
     api_key : api_key,
-    user_id: user_id,
+    user_id: user_id
 }
 
 
@@ -48,7 +48,7 @@ var _flickrConfigPublicGalleries = {
     method: publicGalleriesMethod,
     format: 'json',
     api_key : api_key,
-    user_id: user_id,
+    user_id: user_id
 }
 
 var _flickrConfigPublicGalleriesGetPhotos = {
@@ -56,11 +56,12 @@ var _flickrConfigPublicGalleriesGetPhotos = {
     format: 'json',
     api_key : api_key,
     user_id: user_id,
+    extras : 'date_upload, date_taken, owner_name, icon_server, original_format, last_update, geo, tags, machine_tags, o_dims, views, media, path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o'
 }
 
 
 var _publicPhotosAll = [];
-var _publicGalleryPhotos = []
+var _publicGalleryPhotos = [];
 var _publicGalleries = [];
 var _publicGalleryCollections = [];
 
@@ -81,6 +82,7 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     getPublicGalleries: function(){
         return _publicGalleries;
     },
+
     onFlikrGalleryChanged:function(value){
 
     },
@@ -111,17 +113,19 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
             return json;
         });
     },
-
     loadPublicGalleriesGetImages:function(id){
-        _flickrConfigPublicGalleriesGetPhotos.photoset_id = id
+        console.log("Loading gallery ", id)
+        _flickrConfigPublicGalleriesGetPhotos.photoset_id = String(id);
         JSONP(_flickrStandardRestMethod,_flickrConfigPublicGalleriesGetPhotos,'jsoncallback',function(json){
-            console.log(">>>>Store Function Galleries Get Images ",json);
-            _publicGalleryPhotos = json.photos.photo;
-            AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
-            return json;
+          //  if (json && json.photoset && json.photoset.photo){
+                console.log("WAWAWAWAW Store Function _publicPhotosAll ",_publicPhotosAll);
+                _publicPhotosAll = json.photoset.photo
+                AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
+
+           // };
+            return _publicGalleryPhotos ;
         });
     },
-
     dt:AppDispatcher.register(function(payload){
         console.log("FLIKR_PAYLOAD -----", payload)
         var action = payload.action;

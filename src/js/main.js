@@ -33,15 +33,15 @@ React.render(
     <TwitterComponent />, document.getElementById('twitter')
 )
 
-React.render(
-    <FlikrComponent />, document.getElementById('flikr')
-)
-
 //React.render(
-//    <MainApp  />,
-//    document.getElementById("main-app")
-//);
-flickerApi.getFlickr('donkey');
+//    <FlikrComponent />, document.getElementById('flikr')
+//)
+
+React.render(
+    <MainApp  />,
+    document.getElementById("main-app")
+);
+//flickerApi.getFlickr('donkey');
 
 React.renderComponent(React.createElement(MainApp), document.getElementById("main-app") );
 

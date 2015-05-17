@@ -2,6 +2,12 @@
 var React = require('react');
 var AppActions = require("../../actions/app-actions");
 var Store = require("../../stores/Flikr-store");
+var Router = require('react-router-component')
+var Locations = Router.Locations
+var Location = Router.Location
+var CaptureClicks = require('react-router-component/lib/CaptureClicks')
+var Link = require('react-router-component').Link
+
 
 
 var FlickrCell = React.createClass({
@@ -80,7 +86,12 @@ var FlickrCell = React.createClass({
             flikrdata: this.props.flikrdata
         });
     },
-
+    componentWillReceiveProps:function(newVal){
+        console.log("Receiving props in the image -- newval", newVal)
+        if(newVal.flikrdata.id != this.state.flikrdata.id){
+            this.setState({flikrdata: newVal.flikrdata});
+        }
+    },
     render:function(){
         return (
             <li>
@@ -98,20 +109,38 @@ var FlikrComponent = React.createClass({
     },
     // The props are set not to change
     getDefaultProps:function(){
-        return {gallery : 'default' }
+        return {gallery : '' }
     },
     // The state is mutable and takes
     getInitialState:function(){
-        return { flikrPublicPhotos:Store.getFlikrPublicPhotos(),
+        return {
+            flikrPublicPhotos:Store.getFlikrPublicPhotos(),
+            galleryId:"",
             id:0
         }
     },
     componentWillMount:function(){
-        Store.addChangeListener(this._onChange)
+        Store.addChangeListener(this._onStoreChange)
     },
-    _onChange:function(){
-       this.setState({flikrPublicPhotos: Store.getFlikrPublicPhotos()})
-        console.log("ON CHANGE : FLICKR");
+    _onStoreChange:function(){
+            console.log('XXXXAAAAA The on change event is firing..... ')
+        //this.setState({})
+        //if(this.state.galleryId != this.props.gallery){
+            this.setState({"galleryId": this.props.gallery,
+                flikrPublicPhotos: Store.getFlikrPublicPhotos()
+            });
+           //  Store.loadPublicGalleriesGetImages(this.state.galleryId);
+        //}
+    },
+    componentWillReceiveProps(newProps){
+        console.log("THE PROPS WERE====>>> ", this.props)
+        console.log("PROPS CHANGED  ===> ", newProps );
+        if(newProps !== this.props){
+            Store.loadPublicGalleriesGetImages(newProps.gallery);
+        }
+    },
+    _onNavigate:function(){
+        console.log("NAVIGATE ",this.props.gallery);
     },
     loadPublicPhotos:function(){
         Store.loadPublicPhotos();
@@ -123,18 +152,21 @@ var FlikrComponent = React.createClass({
         Store.loadPublicGalleries();
     },
     render:function(){
-        var results = this.state.flikrPublicPhotos;
-
+        var results = Store.getFlikrPublicPhotos() // this.state.flikrPublicPhotos;
         return (<div class = "flikr">
             {FlikrGalleries({})};
-            <h3>Flikr --- component</h3>
-            <h3>Gallery    {this.props.gallery}</h3>
-            <button type="button" onClick={this.loadPublicPhotos}>Search</button>
-            <button type="button" onClick={this.loadPublicGalleriesCollections}>Galleries Sets</button>
-            <button type="button" onClick={this.loadPublicGalleries}>Galleries</button>
+            <h3>Flikr component --- </h3>
+            <h3>Gallery props.gallery =  {this.state.galleryId} </h3>
+            <CaptureClicks>
+                <button type="button" onClick={this.loadPublicPhotos}>Search</button>
+                <button type="button" onClick={this.loadPublicGalleriesCollections}>Galleries Sets</button>
+                <button type="button" onClick={this.loadPublicGalleries}>Galleries</button>
+            </CaptureClicks>
             <ul>
-                {results.map(function(result) {
-                    return FlickrCell({flikrdata:result})
+                {results.map(function(result, ind) {
+                    console.log(">>>>>>>>>>>> PAssing result ",result)
+
+                    return <FlickrCell flikrdata={result} key={ind} />
                 })
             }
             </ul>
@@ -156,28 +188,36 @@ var FlikrGalleries = React.createClass({
         this.setState({
             flikrdata: this.props.flikrdata
         });
+        Store.addChangeListener(this.onGalleriesChange)
     },
 
+    ////:
+    onGalleriesChange:function(){
+       // galleries:Store.getPublicGalleries()
+        this.setState({galleries:Store.getPublicGalleries()})
+    },
 
     render:function(){
 
     var _galleries = Store.getPublicGalleries();
-    console.log(" _galleries ---------- ",_galleries)
+    //console.log(" _galleries ---------- ",_galleries)
         return (
-            <li>
-            {_galleries.map(function(d,i) {
-                    return FlikrGalleryCell({data:d});
-            })}
-            </li>
+            <div>
+                <h3>Here are the galleries----</h3>
+                <li>
+                {_galleries.map(function(d,i) {
+                        return FlikrGalleryCell({data:d, key: d.id});
+                })}
+                </li>
+            </div>
             )
     }
 });
 
-
 FlikrGalleryCell = React.createClass({
     getInitialState:function(){
         return {
-            data:{title:{_content:"Waiting"}}
+            data:{title:{_content:"loading"}}
         }
     },
     componentDidMount:function(){
@@ -186,14 +226,14 @@ FlikrGalleryCell = React.createClass({
         });
     },
     getLinkUrl:function(){
-        return location.pathname+"/flikr/"+this.state.data.id
+        return this.state.data.id
     },
 
     render:function(){
-    console.log("STATE DATA ", this.state.data);
+//    console.log("STATE DATA ", this.state.data);
     return (<li>
         {this.state.data.title._content }This is a gallery
-        <a href={ this.getLinkUrl() } >back to albums</a>
+        // <Link href={ this.getLinkUrl() } > Go to to gallery</Link>
     </li>)
     }
 })

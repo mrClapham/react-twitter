@@ -66,7 +66,7 @@ var _publicGalleries = [];
 var _publicGalleryCollections = [];
 
 //-- is the gallery in the process of changing?
-
+var _galleryId = null;
 var _galleryLoading = true;
 
 
@@ -122,6 +122,8 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     },
     loadPublicGalleriesGetImages:function(id){
         console.log("Loading gallery ", id)
+        if(_galleryId === id) return
+        _galleryId = id
         _galleryLoading = true;
         AppDispatcher.handleViewAction(AppConstatnts.FLIKR_GALLERY_CHANGING, null);
         _flickrConfigPublicGalleriesGetPhotos.photoset_id = String(id);

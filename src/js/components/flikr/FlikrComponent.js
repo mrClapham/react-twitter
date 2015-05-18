@@ -87,11 +87,10 @@ var FlickrCell = React.createClass({
         });
         Store.addChangeListener(function(){
             Store.getGalletyLoading() ? console.log("LOADING ______") : console.log("Done ______");
-
         })
     },
     componentWillReceiveProps:function(newVal){
-        console.log("Receiving props in the image -- newval", newVal)
+        //console.log("Receiving props in the image -- newval", newVal)
         if(newVal.flikrdata.id != this.state.flikrdata.id){
             this.setState({flikrdata: newVal.flikrdata});
         }
@@ -105,7 +104,8 @@ var FlickrCell = React.createClass({
             </li>
         )
     }
-})
+});
+
 ///---- The individual cell
 var FlikrComponent = React.createClass({
     proptypes:{
@@ -113,13 +113,14 @@ var FlikrComponent = React.createClass({
     },
     // The props are set not to change
     getDefaultProps:function(){
-        return {gallery : '' }
+        return {gallery : '', image:""}
     },
     // The state is mutable and takes
     getInitialState:function(){
         return {
             flikrPublicPhotos:Store.getFlikrPublicPhotos(),
-            galleryId:"",
+            gallery:"",
+            galleryImage:"",
             id:0
         }
     },
@@ -128,16 +129,14 @@ var FlikrComponent = React.createClass({
     },
     componentDidMount:function(){
         Store.loadPublicGalleries();
+        Store.loadPublicGalleriesGetImages(this.props.gallery);
     },
     _onStoreChange:function(){
             console.log('XXXXAAAAA The on change event is firing..... ')
-        //this.setState({})
-        //if(this.state.galleryId != this.props.gallery){
-            this.setState({"galleryId": this.props.gallery,
-                flikrPublicPhotos: Store.getFlikrPublicPhotos()
+
+            this.setState({"gallery": this.props.gallery,
+                flikrPublicPhotos: Store.getFlikrPublicPhotos() //
             });
-           //  Store.loadPublicGalleriesGetImages(this.state.galleryId);
-        //}
     },
     componentWillReceiveProps(newProps){
         console.log("THE PROPS WERE====>>> ", this.props)
@@ -163,7 +162,8 @@ var FlikrComponent = React.createClass({
         return (<div class = "flikr">
             {FlikrGalleries({})};
             <h3>Flikr component --- </h3>
-            <h3>Gallery props.gallery =  {this.state.galleryId} </h3>
+            <h3>Gallery props.gallery =  {this.props.gallery} </h3>
+            <h3>Gallery props.image =  {this.props.galleryImage} </h3>
             <CaptureClicks>
                 <button type="button" onClick={this.loadPublicPhotos}>Search</button>
                 <button type="button" onClick={this.loadPublicGalleriesCollections}>Galleries Sets</button>

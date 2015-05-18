@@ -43,9 +43,7 @@ React.render(
 );
 //flickerApi.getFlickr('donkey');
 
-React.renderComponent(React.createElement(MainApp), document.getElementById("main-app") );
-
-
+//React.renderComponent(React.createElement(MainApp), document.getElementById("main-app") );
 
 
 

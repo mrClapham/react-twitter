@@ -90,7 +90,6 @@ var FlickrCell = React.createClass({
         })
     },
     componentWillReceiveProps:function(newVal){
-        //console.log("Receiving props in the image -- newval", newVal)
         if(newVal.flikrdata.id != this.state.flikrdata.id){
             this.setState({flikrdata: newVal.flikrdata});
         }
@@ -141,14 +140,13 @@ var FlikrComponent = React.createClass({
             });
     },
     componentWillReceiveProps(newProps){
-        console.log("THE PROPS WERE====>>> ", this.props)
-        console.log("PROPS CHANGED  ===> ", newProps );
         if(newProps !== this.props){
             Store.loadPublicGalleriesGetImages(newProps.gallery);
+            if(newProps.galleryImage)Store.loadMainImage(newProps.galleryImage);
         }
     },
     _onNavigate:function(){
-        console.log("NAVIGATE ",this.props.gallery);
+        //console.log("NAVIGATE ",this.props.gallery);
     },
     loadPublicPhotos:function(){
         Store.loadPublicPhotos();
@@ -162,6 +160,7 @@ var FlikrComponent = React.createClass({
     render:function(){
         var results = Store.getFlikrPublicPhotos() // this.state.flikrPublicPhotos;
         return (<div class = "flikr">
+            <FlikrMainImage />
             {FlikrGalleries({})};
             <h3>Flikr component --- </h3>
             <h3>Gallery props.gallery =  {this.props.gallery} </h3>
@@ -220,6 +219,7 @@ var FlikrGalleries = React.createClass({
     }
 });
 
+
 FlikrGalleryCell = React.createClass({
     getInitialState:function(){
         return {
@@ -242,6 +242,40 @@ FlikrGalleryCell = React.createClass({
         <Link href={ this.getLinkUrl() } > Go to gallery</Link>
     </li>)
     }
-})
+});
+
+
+//------------------------------
+FlikrMainImage = React.createClass({
+    getInitialState:function(){
+        return {
+            flikrdata:{id:"No id yet", title:{_content:"loading"}}
+        }
+    },
+    getDefaultProps:function(){
+        return {
+            flikrdata:{title:{_content:"loading"}}
+        }
+    },
+    componentDidMount:function(){
+        this.setState({
+            data: this.props.data
+        });
+        Store.addChangeListener(this._onMainImageChanged)
+    },
+    _onMainImageChanged:function(e){
+        console.log("_onMainImageChanged >>>",e, Store.getMainImage())
+
+       if( Store.getMainImage() ) this.setState({'flikrdata': Store.getMainImage() })
+    },
+    render:function(){
+        return(
+            <div>
+            <h3>THIS IS THE BIG IMAGE {this.state.flikrdata.id}</h3>
+            <img src={this.state.flikrdata.url_l} />
+                </div>
+            )
+    }
+});
 
 module.exports = FlikrComponent;

@@ -68,7 +68,7 @@ var _publicGalleryCollections = [];
 //-- is the gallery in the process of changing?
 var _galleryId = null;
 var _galleryLoading = true;
-
+var _mainImage = null;
 
 var FlikrStore = assign({}, EventEmmitter.prototype, {
     emitChange:function(){
@@ -89,6 +89,9 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     getGalletyLoading:function(){
        return  _galleryLoading;
     },
+    getMainImage:function(){
+        return _mainImage;
+    },
     getGalleryId:function(){
         return _galleryId;
     },
@@ -101,7 +104,6 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
 
     loadPublicPhotos:function(){
         JSONP(_flickrStandardRestMethod,_flickrConfigPublicPhotos,'jsoncallback',function(json){
-            console.log("Store Function func ",json);
             _publicPhotosAll = json.photos.photo;
             AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
             return json;
@@ -109,7 +111,6 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     },
     loadPublicGalleriesCollections:function(){
         JSONP(_flickrStandardRestMethod,_flickrConfigPublicGalleriesCollection,'jsoncallback',function(json){
-            console.log("Store Function Galleries List",json);
             _publicGalleryCollections = json.collections.collection;
             AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
             return json;
@@ -117,32 +118,40 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     },
      loadPublicGalleries:function(){
         JSONP(_flickrStandardRestMethod,_flickrConfigPublicGalleries,'jsoncallback',function(json){
-            console.log(">>>>Store Function Galleries ",json);
             _publicGalleries = json.photosets.photoset;
             AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
             return json;
         });
     },
     loadPublicGalleriesGetImages:function(id){
-        console.log("Loading gallery ", id)
         if(_galleryId === id) return
         _galleryId = id
         _galleryLoading = true;
         AppDispatcher.handleViewAction(AppConstatnts.FLIKR_GALLERY_CHANGING, null);
         _flickrConfigPublicGalleriesGetPhotos.photoset_id = String(id);
         JSONP(_flickrStandardRestMethod,_flickrConfigPublicGalleriesGetPhotos,'jsoncallback',function(json){
-          //  if (json && json.photoset && json.photoset.photo){
-                console.log("WAWAWAWAW Store Function _publicPhotosAll ",_publicPhotosAll);
                 _publicPhotosAll = json.photoset.photo;
                 _galleryLoading = false;
 
             AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
-           // };
             return _publicGalleryPhotos ;
         });
     },
+    getByValue: function(arr, value) {
+    var result  = arr.filter(function(o){return o.id == value;} );
+    return result? result[0] : null; // or undefined
+    },
+    loadMainImage:function(id){
+        if(_publicPhotosAll){
+            var mainImage = this.getByValue(_publicPhotosAll,id);
+            if(mainImage){
+                _mainImage = mainImage;
+                console.log("DISPATCHING chosen image is ", mainImage);
+                AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, id);
+            }
+        }
+    },
     dt:AppDispatcher.register(function(payload){
-        console.log("FLIKR_PAYLOAD -----", payload)
         var action = payload.action;
         switch(action.actionType){
             case AppConstatnts.FLIKR_RESULT_CHANGED :
@@ -158,3 +167,4 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
 })
 
 module.exports = FlikrStore;
+

@@ -6,7 +6,7 @@ var AppConstatnts = require("../constants/app-constatnts");
 var assign = require('object-assign');
 var EventEmmitter = require("events").EventEmitter;
 require('../utils/JSONP');
-var FlikrApi = require('../utils/FlickrApi');
+// var FlikrApi = require('../utils/FlickrApi');
 
 require('../utils/JSONP');
 var Q = require('q');
@@ -88,6 +88,9 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     },
     getGalletyLoading:function(){
        return  _galleryLoading;
+    },
+    getGalleryId:function(){
+        return _galleryId;
     },
     onFlikrGalleryChanged:function(value){
 

@@ -99,7 +99,9 @@ var FlickrCell = React.createClass({
         return (
             <li className={Store.getGalletyLoading() ? 'flikr-cell loading-gallery' : 'flikr-cell loaded-gallery'}>
                 <p>{this.state.flikrdata.latitude}</p>
-                <p>{this.state.flikrdata.url_sq}</p>
+                //<p>{this.state.flikrdata.url_sq}</p>
+                <Link href={ Store.getGalleryId()+"/"+this.state.flikrdata.id } > Go to Image</Link>
+
                 <img src={this.state.flikrdata.url_sq} />
             </li>
         )
@@ -236,8 +238,8 @@ FlikrGalleryCell = React.createClass({
     render:function(){
 //    console.log("STATE DATA ", this.state.data);
     return (<li>
-        {this.state.data.title._content }This is a gallery
-        // <Link href={ this.getLinkUrl() } > Go to to gallery</Link>
+        {this.state.data.title._content } ----This is a gallery
+        <Link href={ this.getLinkUrl() } > Go to gallery</Link>
     </li>)
     }
 })

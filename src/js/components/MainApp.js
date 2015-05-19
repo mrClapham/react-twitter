@@ -35,10 +35,10 @@ var FlikrGalleries = React.createClass({
                 <Location path="/" handler={FlikrPage} />
                 <Location path="/:gallery" handler={FlikrPage} />
                 <Location path={/\/([0-9]*)\/([0-9]*)/}  matchKeys={['gallery', 'galleryImage']} handler={FlikrPage} />
+                <Location path={/\/([0-9]*)\/([0-9]*)\/([0-9]*)/}  matchKeys={['gallery', 'galleryImage', 'mainImage']} handler={FlikrPage} />
             </Locations>
             )
     }
 })
 
 module.exports  = MainApp;
-

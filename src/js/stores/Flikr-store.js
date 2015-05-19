@@ -130,11 +130,14 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
         AppDispatcher.handleViewAction(AppConstatnts.FLIKR_GALLERY_CHANGING, null);
         _flickrConfigPublicGalleriesGetPhotos.photoset_id = String(id);
         JSONP(_flickrStandardRestMethod,_flickrConfigPublicGalleriesGetPhotos,'jsoncallback',function(json){
+            if(json && json.photoset && json.photoset.photo){
                 _publicPhotosAll = json.photoset.photo;
                 _galleryLoading = false;
-
-            AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
-            return _publicGalleryPhotos ;
+                AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
+                return _publicGalleryPhotos ;
+            }else{
+                return;
+            }
         });
     },
     getByValue: function(arr, value) {

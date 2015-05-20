@@ -14,7 +14,7 @@ var embedlr = require('gulp-embedlr'),
 
 
 var T = new Twit(TwitConfig);
-
+/*
 console.log("Reading in the last 10 tweets with search: belfast");
 T.get('search/tweets', { q: 'belfast', count: 10 }, function(err, reply) {
     if (err) {
@@ -30,6 +30,7 @@ T.get('search/tweets', { q: 'belfast', count: 10 }, function(err, reply) {
         }
     }
 })
+*/
 
 // Set up an express server (but not starting it yet)
 var server = express();

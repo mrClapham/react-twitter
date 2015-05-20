@@ -129,6 +129,7 @@ var FlikrComponent = React.createClass({
     componentDidMount:function(){
         Store.loadPublicGalleries();
         Store.loadPublicGalleriesGetImages(this.props.gallery);
+        Store.loadMainImage(this.props.galleryImage);
     },
     _onStoreChange:function(){
             console.log('XXXXAAAAA The on change event is firing..... ')
@@ -158,7 +159,7 @@ var FlikrComponent = React.createClass({
     render:function(){
         var results = Store.getFlikrPublicPhotos() // this.state.flikrPublicPhotos;
         return (<div class = "flikr">
-            <FlikrMainImage />
+            <FlikrMainImage id={this.props.galleryImage}/>
             {FlikrGalleries({})};
             <h3>Flikr component --- </h3>
             <h3>Gallery props.gallery =  {this.props.gallery} </h3>

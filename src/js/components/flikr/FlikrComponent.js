@@ -126,10 +126,15 @@ var FlikrComponent = React.createClass({
     componentWillMount:function(){
         Store.addChangeListener(this._onStoreChange)
     },
+
+    componentWillUnmount:function(){
+        Store.removeChangeListener(this._onStoreChange)
+    },
     componentDidMount:function(){
         Store.loadPublicGalleries();
         Store.loadPublicGalleriesGetImages(this.props.gallery);
-        Store.loadMainImage(this.props.galleryImage);
+        var _gallImage = this.props.galleryImage
+        window.setTimeout(function(){ Store.loadMainImage(_gallImage) }, 3000)
     },
     _onStoreChange:function(){
             console.log('XXXXAAAAA The on change event is firing..... ')

@@ -6,7 +6,7 @@ var GenericButton       = require('./components/GenericButton');
 var DashBoard           = require('./components/DashBoard');
 var MainApp             = require('./components/MainApp');
 var TwitterComponent    = require('./components/twitter/TwitterComponent');
-var flickerApi          = require('./utils/FlickrApi');
+//var flickerApi          = require('./utils/FlickrApi');
 
 var FlikrComponent      = require('./components/flikr/FlikrComponent')
 
@@ -23,7 +23,6 @@ React.render(
     <GenericButton  />,
     document.getElementById("sub")
 );
-
 React.render(
     <DashBoard  />,
     document.getElementById("dash")

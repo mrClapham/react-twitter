@@ -92,6 +92,11 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     getMainImage:function(){
         return _mainImage;
     },
+    setMainImage:function(value){
+        if(value && !isNaN(value)){
+            _mainImage = value;
+        }
+    },
     getGalleryId:function(){
         return _galleryId;
     },
@@ -101,7 +106,13 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     onFlikrResultChanged:function(value){
 
     },
-
+    onFlikrMainImagechanged:function(value){
+        if(value && !isNaN(value)){
+            _mainImage = value
+            console.log("The main image has changed in the store and is firing an action...")
+            AppDispatcher.handleViewAction(AppConstatnts.FLIKR_STORE_UPDATED_MAIN, _mainImage);
+        }
+    },
     loadPublicPhotos:function(){
         JSONP(_flickrStandardRestMethod,_flickrConfigPublicPhotos,'jsoncallback',function(json){
             _publicPhotosAll = json.photos.photo;
@@ -162,6 +173,9 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
                 break;
             case AppConstatnts.FLIKR_GALLERY_CHANGED :
                 onFlikrGalleryChanged(action.value)
+                break;
+            case AppConstatnts.FLIKR_MAINIMAGE_CHANGED :
+                this.onFlikrMainImagechanged(action.value)
                 break;
         }
         FlikrStore.emitChange();

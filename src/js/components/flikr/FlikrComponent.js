@@ -8,6 +8,9 @@ var Location = Router.Location
 var CaptureClicks = require('react-router-component/lib/CaptureClicks')
 var Link = require('react-router-component').Link
 
+var AppDispatcher = require("../../dispatchers/app-dispatcher");
+var AppConstatnts = require("../../constants/app-constatnts");
+
 var FlickrCell = React.createClass({
 
     getInitialState:function(){
@@ -104,8 +107,13 @@ var FlickrCell = React.createClass({
         )
     }
 });
+///--- common functionality
 
-///---- The individual cell
+var _handleMainImageChange = function(galleryInageId){
+    AppDispatcher.handleViewAction(AppConstatnts.FLIKR_MAINIMAGE_CHANGED, galleryInageId);
+}
+
+///---- The Main Flikr App ----
 var FlikrComponent = React.createClass({
     proptypes:{
         flikrPublicPhotos:React.PropTypes.array
@@ -129,17 +137,18 @@ var FlikrComponent = React.createClass({
     componentDidMount:function(){
         Store.loadPublicGalleries();
         Store.loadPublicGalleriesGetImages(this.props.gallery);
-        Store.loadMainImage(this.props.galleryImage);
+        if(this.props.galleryImage){
+            _handleMainImageChange (this.props.galleryImage);
+        }
     },
     _onStoreChange:function(){
-            console.log('XXXXAAAAA The on change event is firing..... ')
-
             this.setState({"gallery": this.props.gallery,
                 flikrPublicPhotos: Store.getFlikrPublicPhotos() //
             });
     },
     componentWillReceiveProps(newProps){
         if(newProps !== this.props){
+            console.log("THE PROPS HAVE CHANGED ",this.props);
             Store.loadPublicGalleriesGetImages(newProps.gallery);
             if(newProps.galleryImage)Store.loadMainImage(newProps.galleryImage);
         }
@@ -160,7 +169,7 @@ var FlikrComponent = React.createClass({
         var results = Store.getFlikrPublicPhotos() // this.state.flikrPublicPhotos;
         return (<div class = "flikr">
             <FlikrMainImage id={this.props.galleryImage}/>
-            {FlikrGalleries({})};
+            <FlikrGalleries />;
             <h3>Flikr component --- </h3>
             <h3>Gallery props.gallery =  {this.props.gallery} </h3>
             <h3>Gallery props.image =  {this.props.galleryImage} </h3>
@@ -177,7 +186,7 @@ var FlikrComponent = React.createClass({
             </ul>
         </div>)
     }
-})
+});
 // --- the galleries
 
 var FlikrGalleries = React.createClass({
@@ -210,14 +219,13 @@ var FlikrGalleries = React.createClass({
                 <h3>Here are the galleries----</h3>
                 <li>
                 {_galleries.map(function(d,i) {
-                        return FlikrGalleryCell({data:d, key: d.id});
+                        return <FlikrGalleryCell data = {d} key = {d.id} />;
                 })}
                 </li>
             </div>
             )
     }
 });
-
 
 FlikrGalleryCell = React.createClass({
     getInitialState:function(){
@@ -242,7 +250,6 @@ FlikrGalleryCell = React.createClass({
     </li>)
     }
 });
-
 
 //------------------------------
 FlikrMainImage = React.createClass({

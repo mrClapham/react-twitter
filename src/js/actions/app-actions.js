@@ -7,9 +7,11 @@ var AppActions = {
     },
     testAction2:function(value){
         AppDispatcher.handleViewAction({actionType:AppConstants.STATE_CHANGE, value:value})
+    },
+    navigate:function(value){
+        console.log("app-actions - Actions navigate...")
+        AppDispatcher.handleViewAction({actionType:AppConstants.NAVIGATE, value:value})
     }
-
 }
-
 
 module.exports = AppActions;

@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var AppActions = require("../../actions/app-actions");
+var FlikrActions = require("../../actions/FlikrActions");
 var Store = require("../../stores/Flikr-store");
 var Router = require('react-router-component')
 var Locations = Router.Locations
@@ -91,6 +92,8 @@ var FlickrCell = React.createClass({
         })
     },
     componentWillReceiveProps:function(newVal){
+        console.log("FlickrCell componentWillReceiveProps newVal ", newVal)
+
         if(newVal.flikrdata.id != this.state.flikrdata.id){
             this.setState({flikrdata: newVal.flikrdata});
         }
@@ -147,10 +150,13 @@ var FlikrComponent = React.createClass({
             });
     },
     componentWillReceiveProps(newProps){
+    console.log("componentWillReceiveProps ");
         if(newProps !== this.props){
             console.log("THE PROPS HAVE CHANGED ",this.props);
             Store.loadPublicGalleriesGetImages(newProps.gallery);
             if(newProps.galleryImage)Store.loadMainImage(newProps.galleryImage);
+            FlikrActions.changeGallery(newProps.gallery);
+            FlikrActions.changeMainImage(newProps.galleryImage);
         }
     },
     _onNavigate:function(){
@@ -203,7 +209,9 @@ var FlikrGalleries = React.createClass({
         });
         Store.addChangeListener(this.onGalleriesChange)
     },
-
+    componentWillReceiveProps(oldProps){
+        console.log("FlikrGalleries componentWillReceiveProps oldProps - ",oldProps)
+    },
     ////:
     onGalleriesChange:function(){
        // galleries:Store.getPublicGalleries()
@@ -217,11 +225,9 @@ var FlikrGalleries = React.createClass({
         return (
             <div>
                 <h3>Here are the galleries----</h3>
-                <li>
                 {_galleries.map(function(d,i) {
                         return <FlikrGalleryCell data = {d} key = {d.id} />;
                 })}
-                </li>
             </div>
             )
     }
@@ -270,7 +276,7 @@ FlikrMainImage = React.createClass({
         Store.addChangeListener(this._onMainImageChanged)
     },
     _onMainImageChanged:function(e){
-        console.log("_onMainImageChanged >>>",e, Store.getMainImage())
+        //console.log("_onMainImageChanged >>>",e, Store.getMainImage())
 
        if( Store.getMainImage() ) this.setState({'flikrdata': Store.getMainImage() })
     },

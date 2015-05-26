@@ -7,8 +7,16 @@ var FlikrActions = {
     },
     flikrSearchChanged:function(value){
         AppDispatcher.handleViewAction({actionType:AppConstants.FLIKR_RESULT_CHANGED, value:value})
+    },
+    changeGallery:function(value){
+        console.log("Action - Gallery ")
+        AppDispatcher.handleViewAction(AppConstants.FLIKR_GALLERY_CHANGED, value)
+
+    },
+    changeMainImage:function(value){
+        console.log("Action - IMAGE ")
+        AppDispatcher.handleViewAction(AppConstants.FLIKR_MAINIMAGE_CHANGED, value)
     }
 }
-
 
 module.exports = FlikrActions;

@@ -25,6 +25,10 @@ var publicGalleriesGetPhotosMethod = "flickr.photosets.getPhotos";
 var _page = 1;
 var _perPage = 30;
 
+onFlikrNavigate = function(value){
+    console.log("Flikr Store -- onNavigate --  ", value);
+}
+
 var _flickrConfigPublicPhotos = {
     method: publicPhotosMethod,
     format: 'json',
@@ -101,12 +105,14 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
         return _galleryId;
     },
     onFlikrGalleryChanged:function(value){
-
+        console.log("THE FLIKR GALLERY IS CHANGE IN -- event ",value)
     },
     onFlikrResultChanged:function(value){
 
     },
     onFlikrMainImagechanged:function(value){
+        console.log("THE FLIKR IMAGE IS CHANGE IN -- event ",value)
+
         if(value && !isNaN(value)){
             _mainImage = value
             console.log("The main image has changed in the store and is firing an action...")
@@ -167,6 +173,7 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     },
     dt:AppDispatcher.register(function(payload){
         var action = payload.action;
+        console.log("THE DISPATCHER IS BEING CALLED -- ", payload)
         switch(action.actionType){
             case AppConstatnts.FLIKR_RESULT_CHANGED :
                 onFlikrResultChanged(action.value)
@@ -176,6 +183,10 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
                 break;
             case AppConstatnts.FLIKR_MAINIMAGE_CHANGED :
                 this.onFlikrMainImagechanged(action.value)
+                break;
+            case AppConstatnts.NAVIGATE :
+                //console.log("NAVIGATE  ===>> ",this)
+                onFlikrNavigate(action.value);
                 break;
         }
         FlikrStore.emitChange();

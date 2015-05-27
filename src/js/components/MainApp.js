@@ -1,16 +1,18 @@
 /** @jsx React.DOM */
 
-var React           = require('react');
-var Router          = require('react-router-component');
-var UserPage        = require('../components/UserPage');
-var MainPage        = require('../components/MainPage');
-var FlikrPage       = require('../components/flikr/FlikrComponent');
-var AppActions      = require('../actions/app-actions')
+var React               = require('react');
+var Router              = require('react-router-component');
+var UserPage            = require('../components/UserPage');
+var MainPage            = require('../components/MainPage');
+var FlikrPage           = require('../components/flikr/FlikrComponent');
+var Experiments         = require('../components/experiments/Experiments');
+var FlockExperiments    = require('../components/experiments/FlockExperiment');
+var AppActions          = require('../actions/app-actions');
 
-var NotFound        = Router.NotFound;
-var NotFoundPage    = require('../components/NotFoundPage');
-var Locations       = React.createFactory(Router.Locations);
-var Location        = React.createFactory(Router.Location);
+var NotFound            = Router.NotFound;
+var NotFoundPage        = require('../components/NotFoundPage');
+var Locations           = React.createFactory(Router.Locations);
+var Location            = React.createFactory(Router.Location);
 
 var MainApp = React.createClass({
     onStartNavigate : function(e) {
@@ -31,12 +33,25 @@ var MainApp = React.createClass({
                 <Location path="/main/" handler={MainPage} />
                 <Location path="/users/" handler={UserPage} />
                 <Location path="/flikr(/*)" handler={FlikrGalleries} />
+                <Location path="/experiments/" handler={Experiments} />
+                <Location path="/experiments/flock/" handler={FlockExperiments} />
                 <NotFound handler={NotFoundPage} />
             </Locations>
            </div>
         )
     }
-})
+});
+
+//var ExperimentGalleries = React.createClass({
+//    render:function(){
+//        return             <Locations contextual>
+//            <Location path="/" handler={FlikrPage} />
+//            <Location path="/:experiments" handler={FlikrPage} />
+//            <Location path={/\/([0-9]*)\/([0-9]*)/}  matchKeys={['gallery', 'galleryImage']} handler={FlikrPage} />
+//            <Location path={/\/([0-9]*)\/([0-9]*)\/([0-9]*)/}  matchKeys={['gallery', 'galleryImage', 'mainImage']} handler={FlikrPage} />
+//        </Locations>
+//    }
+//})
 
 var FlikrGalleries = React.createClass({
     render: function() {

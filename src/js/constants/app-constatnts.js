@@ -13,6 +13,6 @@ module.exports = {
     FLIKR_MAINIMAGE_CHANGED: "flikrMainImageChanged",
     NAVIGATE:"navigateStart",
     NAVIGATE_END:"navigateEnd",
-    NAVIGATE_START:"navigateEnd",
+    NAVIGATE_START:"navigateStart",
     LOADING_STATE_CHANGE: "loadingStateChange"
 }

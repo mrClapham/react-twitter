@@ -180,7 +180,7 @@ var FlikrComponent = React.createClass({
     },
     render:function(){
         var results = Store.getFlikrPublicPhotos() // this.state.flikrPublicPhotos;
-        return (<div class = "flikr">
+        return (<div className = "flikr">
             <FlikrMainImage id={this.props.galleryImage}/>
             <FlikrGalleries />;
             <h3>Flikr component --- </h3>

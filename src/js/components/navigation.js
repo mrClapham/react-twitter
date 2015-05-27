@@ -31,7 +31,8 @@ var Navigagtion = React.createClass({
                    <ul className="nav navbar-nav">
                        <li className="active"><a href="#">Home</a></li>
                        <li><a href="#/users/">users</a></li>
-                       <li><a href='/#/flikr/'> Go to Flikr </a></li>
+                       <li><a href='/#/flikr/'> Flikr </a></li>
+                       <li><a href='/#/experiments/'> Experiments </a></li>
 
                        <li><a href="#contact">Contact</a></li>
                        <li className="dropdown">

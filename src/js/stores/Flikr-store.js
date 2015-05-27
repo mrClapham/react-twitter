@@ -173,7 +173,7 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     },
     dt:AppDispatcher.register(function(payload){
         var action = payload.action;
-        console.log("THE DISPATCHER IS BEING CALLED -- ", payload)
+        // console.log("THE DISPATCHER IS BEING CALLED -- ", payload)
         switch(action.actionType){
             case AppConstatnts.FLIKR_RESULT_CHANGED :
                 onFlikrResultChanged(action.value)
@@ -195,4 +195,3 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
 })
 
 module.exports = FlikrStore;
-

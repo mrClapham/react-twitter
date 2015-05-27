@@ -45,7 +45,7 @@ var AppStore = assign({}, EventEmmitter.prototype, {
     },
     setIsLoading:function(value){
          _isLoading = value;
-        AppDispatcher.handleViewAction(AppConstatnts.LOADING_STATE_CHANGE, _isLoading);
+//        AppDispatcher.handleViewAction(AppConstatnts.LOADING_STATE_CHANGE, _isLoading);
     },
     dt:AppDispatcher.register(function(payload){
 
@@ -55,6 +55,12 @@ var AppStore = assign({}, EventEmmitter.prototype, {
                     case AppConstatnts.TEST_CHANGED :
                         _increaseCount(action.value)
                     break;
+                    case AppConstatnts.NAVIGATE_START :
+                        _isLoading = true;
+                        break;
+                    case AppConstatnts.NAVIGATE_END :
+                        _isLoading = false;
+                        break;
         }
         AppStore.emitChange();
         return true;

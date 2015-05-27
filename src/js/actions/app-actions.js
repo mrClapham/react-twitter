@@ -10,14 +10,14 @@ var AppActions = {
     },
 
 
-    navigateStart:function(value){
-        console.log("app-actions - Actions navigate...")
-        AppDispatcher.handleViewAction({actionType:AppConstants.NAVIGATE_START, value:value})
+    navigateStart:function(){
+        console.log("app-actions - Actions navigate start ...")
+        AppDispatcher.handleViewAction({actionType:AppConstants.NAVIGATE_START, value:null})
     },
 
-    navigateEnd:function(value){
-        console.log("app-actions - Actions navigate...")
-        AppDispatcher.handleViewAction({actionType:AppConstants.NAVIGATE_END, value:value})
+    navigateEnd:function(){
+        console.log("app-actions - Actions navigate end...")
+        AppDispatcher.handleViewAction({actionType:AppConstants.NAVIGATE_END, value:null})
     }
 }
 

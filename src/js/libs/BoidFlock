@@ -25,7 +25,9 @@ var BoidFlock = function(targDiv, opt_config){
     }
 
     var BoidAttractorClass = function(sketch){
-
+        sketch.preload = function(){
+             // it was throwing an error when I hadn't supplied it with a preloader
+        }
         sketch.setup = function() {
             sketch.createCanvas(_privates.width, _privates.height);
             var _boidConfig =     {startColour:_privates.startColour,
@@ -153,11 +155,8 @@ BoidFlock.createTweenColours = function(start, end, steps){
         _g += _gstep;
         _b += _bstep;
     }
-    // Now check the first and last are correct
-    console.log(returnArray);
-    console.log("R s : ",start.r, ". e : ", end.r,"_rstep : ",_rstep);
-    console.log("G s : ",start.g, ". e : ", end.g,"_gstep : ",_gstep);
-    console.log("_bstep : ",_bstep);
+
+
     return returnArray;
 }
 

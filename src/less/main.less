@@ -1,7 +1,20 @@
 @import '../../node_modules/bootstrap/less/bootstrap.less';
+body{
+  background-color: #000000;
+  background: url("../img/pylon.jpg") no-repeat center center fixed;
+//  -webkit-background-size: cover;
+//  -moz-background-size: cover;
+//  -o-background-size: cover;
+//  background-size: cover;
+}
 
+
+.navbar-inverse{
+  background-color: rgba(0,0,0,.8);
+}
 #main{
-    background-color: #57ffda;
+  background-color: #57ffda;
+  margin-top: 50px;
 }
 
 .loading-gallery{
@@ -16,4 +29,17 @@
   -webkit-transition: opacity 0.5s ease-in-out;
   -moz-transition: opacity 0.5s ease-in-out;
   transition: opacity 0.5s ease-in-out;
+}
+
+
+#preloader{
+  width: 100%;
+  height:100%;
+  background-color: rgba(0,0,0,.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url('../img/loadinfo.net.gif');
+  background-repeat: no-repeat;
+  background-position: 50%, 50%;
 }

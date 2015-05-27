@@ -91,6 +91,9 @@ var FlickrCell = React.createClass({
             Store.getGalletyLoading() ? console.log("LOADING ______") : console.log("Done ______");
         })
     },
+    componentWillUnmount:function(){
+
+    },
     componentWillReceiveProps:function(newVal){
         console.log("FlickrCell componentWillReceiveProps newVal ", newVal)
 
@@ -137,6 +140,9 @@ var FlikrComponent = React.createClass({
     componentWillMount:function(){
         Store.addChangeListener(this._onStoreChange)
     },
+    componentWillUnmount:function(){
+        Store.removeChangeListener(this._onStoreChange)
+    },
     componentDidMount:function(){
         Store.loadPublicGalleries();
         Store.loadPublicGalleriesGetImages(this.props.gallery);
@@ -149,7 +155,7 @@ var FlikrComponent = React.createClass({
                 flikrPublicPhotos: Store.getFlikrPublicPhotos() //
             });
     },
-    componentWillReceiveProps(newProps){
+    componentWillReceiveProps:function(newProps){
     console.log("componentWillReceiveProps ");
         if(newProps !== this.props){
             console.log("THE PROPS HAVE CHANGED ",this.props);
@@ -159,6 +165,7 @@ var FlikrComponent = React.createClass({
             FlikrActions.changeMainImage(newProps.galleryImage);
         }
     },
+
     _onNavigate:function(){
         //console.log("NAVIGATE ",this.props.gallery);
     },
@@ -209,8 +216,11 @@ var FlikrGalleries = React.createClass({
         });
         Store.addChangeListener(this.onGalleriesChange)
     },
-    componentWillReceiveProps(oldProps){
-        console.log("FlikrGalleries componentWillReceiveProps oldProps - ",oldProps)
+    componentWillUnmount:function(){
+        Store.removeChangeListener(this.onGalleriesChange)
+    },
+    componentWillReceiveProps:function(oldProps){
+        console.log("FlikrGalleries componentWillReceiveProps oldProps - ",oldProps);
     },
     ////:
     onGalleriesChange:function(){
@@ -274,6 +284,9 @@ FlikrMainImage = React.createClass({
             data: this.props.data
         });
         Store.addChangeListener(this._onMainImageChanged)
+    },
+    componentWillUnmount:function(){
+        Store.removeChangeListener(this._onMainImageChanged)
     },
     _onMainImageChanged:function(e){
         //console.log("_onMainImageChanged >>>",e, Store.getMainImage())

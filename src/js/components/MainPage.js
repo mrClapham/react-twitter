@@ -14,25 +14,29 @@ var MainPage = React.createClass({
 
     render:function(){
         return <div class="main-page">
-        HELLO I AM THE MAIN PAGE
         <Flock />
         </div>
     }
-
 })
-
 
 ////--- Flocking Boids
 
-
 var Flock = React.createClass({
+    getInitialProps:function(){
+        return {flockHolder : null, flock: null}
+    },
     componentDidMount:function(){
-        var targ = document.getElementById("boids")
-        var _flock = new BoidFlock(targ, {flockSize:200, width:2000, height:1000, backgroundColour:{r:0,g:0,b:0} });
-        _flock.setAttractorGrid(4, 4);
+        this.props.flockHolder = document.getElementById("boids")
+        this.props._flock = new BoidFlock(this.props.flockHolder, {flockSize:200, width:1140, height:900, backgroundColour:{r:200,g:0,b:0} });
+        //_flock.setAttractorGrid(4, 4);
     },
     render:function(){
-        return <div id="boids"> <h1>I am the flocking boid....</h1></div>
+        return <div id="boids">
+        <h1>HELLO FROM THE FLOCK</h1>
+        <h1>HELLO FROM THE FLOCK</h1>
+        <h1>HELLO FROM THE FLOCK</h1>
+        <h1>HELLO FROM THE FLOCK</h1>
+        </div>
     }
 })
 

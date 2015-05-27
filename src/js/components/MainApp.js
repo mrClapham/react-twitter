@@ -13,16 +13,20 @@ var Locations       = React.createFactory(Router.Locations);
 var Location        = React.createFactory(Router.Location);
 
 var MainApp = React.createClass({
+    onStartNavigate : function(e) {
+        console.log("Nav Function started ",e);
+        AppActions.navigateStart(e);
+    },
+
     onNavigate : function(e) {
-        console.log("Nav Function ",e);
-        AppActions.navigate(e);
+        console.log("Nav Function ended ",e);
+        AppActions.navigateEnd(e);
     },
 
     render: function() {
         return (
             <div class='location-holder' >
-            <h1>Here is the main content</h1>
-            <Locations hash onBeforeNavigation={this.onNavigate}>
+            <Locations hash onBeforeNavigation={this.onStartNavigate} onNavigation={this.onNavigate}    >
                 <Location path="/" handler={MainPage} />
                 <Location path="/main/" handler={MainPage} />
                 <Location path="/users/" handler={UserPage} />
@@ -33,7 +37,6 @@ var MainApp = React.createClass({
         )
     }
 })
-
 
 var FlikrGalleries = React.createClass({
     render: function() {

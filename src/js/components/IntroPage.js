@@ -9,7 +9,7 @@ var IntroPage = React.createClass({
         AppActions.testAction(1);
     },
     render:function(){
-        return <div class="main-page">HELLO I AM THE MAIN PAGE</div>
+        return <div class="main-page">HELLO I AM THE INTRO PAGE</div>
     }
 
 })

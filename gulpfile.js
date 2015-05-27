@@ -18,8 +18,12 @@ gulp.task('browserify', function(){
 });
 
 gulp.task('copy', function(){
-    gulp.src(['src/index.html', 'src/static_home.html'])
+    gulp.src(['src/index.html', 'src/static_home.html', 'src/img/**'])
         .pipe(gulp.dest('dist'))
+
+    gulp.src(['src/img/**'])
+        .pipe(gulp.dest('dist/img/'))
+
 });
 
 gulp.task('less', function () {
@@ -29,7 +33,6 @@ gulp.task('less', function () {
         }))
         .pipe(gulp.dest('./dist/css'))
         .pipe(livereload());
-
 });
 
 //Live reload

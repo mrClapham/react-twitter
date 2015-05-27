@@ -11,5 +11,8 @@ module.exports = {
     FLIKR_GALLERY_CHANGING:"flikrGalleryChanging",
     FLIKR_GALLERY_CHANGED:"flickerGalleryChanged",
     FLIKR_MAINIMAGE_CHANGED: "flikrMainImageChanged",
-    NAVIGATE:"navigate"
+    NAVIGATE:"navigateStart",
+    NAVIGATE_END:"navigateEnd",
+    NAVIGATE_START:"navigateEnd",
+    LOADING_STATE_CHANGE: "loadingStateChange"
 }

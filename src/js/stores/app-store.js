@@ -16,11 +16,13 @@ var _testData = [
 ]
 
 var _innerCount = 3;
+var _isLoading = true;
 
 var _increaseCount = function(value){
     _innerCount += value;
     console.log(_innerCount);
 }
+
 
 var AppStore = assign({}, EventEmmitter.prototype, {
     emitChange:function(){
@@ -37,6 +39,13 @@ var AppStore = assign({}, EventEmmitter.prototype, {
     },
     getInnerCount:function(){
         return _innerCount;
+    },
+    getIsLoading:function(){
+        return _isLoading;
+    },
+    setIsLoading:function(value){
+         _isLoading = value;
+        AppDispatcher.handleViewAction(AppConstatnts.LOADING_STATE_CHANGE, _isLoading);
     },
     dt:AppDispatcher.register(function(payload){
 

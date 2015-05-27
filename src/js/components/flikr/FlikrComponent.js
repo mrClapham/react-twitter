@@ -140,15 +140,24 @@ var FlikrComponent = React.createClass({
     componentWillMount:function(){
         Store.addChangeListener(this._onStoreChange)
     },
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4483fa5b3d07a1ac7e9252eace094acf5b105baf
     componentWillUnmount:function(){
         Store.removeChangeListener(this._onStoreChange)
     },
     componentDidMount:function(){
         Store.loadPublicGalleries();
         Store.loadPublicGalleriesGetImages(this.props.gallery);
+<<<<<<< HEAD
         if(this.props.galleryImage){
             _handleMainImageChange (this.props.galleryImage);
         }
+=======
+        var _gallImage = this.props.galleryImage
+        window.setTimeout(function(){ Store.loadMainImage(_gallImage) }, 3000)
+>>>>>>> 4483fa5b3d07a1ac7e9252eace094acf5b105baf
     },
     _onStoreChange:function(){
             this.setState({"gallery": this.props.gallery,

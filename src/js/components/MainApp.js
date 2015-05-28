@@ -24,8 +24,17 @@ var MainApp = React.createClass({
         console.log("Nav Function ended ",e);
         AppActions.navigateEnd(e);
     },
+    onResize:function(){
+        AppActions.screenResized();
+    },
+    componentDidMount:function(){
+        window.addEventListener("resize", this.onResize, true);
+    },
+    componentWillUnmount:function(){
+        // window.removeEventListener("resize", this.onResize, true);
+    },
 
-    render: function() {
+render: function() {
         return (
             <div class='location-holder' >
             <Locations hash onBeforeNavigation={this.onStartNavigate} onNavigation={this.onNavigate}    >
@@ -66,5 +75,8 @@ var FlikrGalleries = React.createClass({
             )
     }
 })
+
+
+
 
 module.exports  = MainApp;

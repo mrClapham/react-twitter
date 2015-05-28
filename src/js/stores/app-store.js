@@ -17,6 +17,7 @@ var _testData = [
 
 var _innerCount = 3;
 var _isLoading = true;
+var _screenSize = {width:100, height:100}
 
 var _increaseCount = function(value){
     _innerCount += value;
@@ -47,6 +48,10 @@ var AppStore = assign({}, EventEmmitter.prototype, {
          _isLoading = value;
 //        AppDispatcher.handleViewAction(AppConstatnts.LOADING_STATE_CHANGE, _isLoading);
     },
+
+    getScreenSize:function(){
+        return {width: window.innerWidth, height:window.innerHeight}
+    },
     dt:AppDispatcher.register(function(payload){
 
         console.log("PAYLOAD -----", payload)
@@ -61,6 +66,9 @@ var AppStore = assign({}, EventEmmitter.prototype, {
                     case AppConstatnts.NAVIGATE_END :
                         _isLoading = false;
                         break;
+                    case AppConstatnts.SCREEN_RESIZED :
+                        _screenSize = action.value;
+                        break
         }
         AppStore.emitChange();
         return true;

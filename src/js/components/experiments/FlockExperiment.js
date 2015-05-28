@@ -22,20 +22,23 @@ var FlockExperiment = React.createClass({
 ////--- Flocking Boids
 
 var Flock = React.createClass({
-    getInitialProps:function(){
-        return {flockHolder : null, flock: null}
+    getDefaultProps:function(){
+        return {flockHolder : null, flock: null, _width:2000}
+    },
+    getStyle:function(){
+    return {"width" : this.props._width+'px', "margin":"0 auto"}
     },
     componentDidMount:function(){
+        console.log("this.props._width ",this.props._width)
         this.props.flockHolder = document.getElementById("boids-flock")
-        this.props._flock = new BoidFlock(this.props.flockHolder, {flockSize:200, width:1140, height:900, backgroundColour:{r:41,g:41,b:41} });
+        this.props._flock = new BoidFlock(this.props.flockHolder, {flockSize:200, width:this.props._width, height:900, backgroundColour:{r:41,g:41,b:41} });
         this.props._flock.setAttractorGrid(4, 4);
     },
     render:function(){
-        return <div id="boids-flock">
+        return <div id="boids-flock" style = {this.getStyle()}>
 
         </div>
     }
 })
-
 
 module.exports = FlockExperiment;

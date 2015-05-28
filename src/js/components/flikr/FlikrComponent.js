@@ -262,11 +262,6 @@ FlikrGalleryCell = React.createClass({
     },
 
     render:function(){
-//
-//            <p>{this.state.data.primary_photo_extras.url_s}</p>
-   //     {this.state.data.title._content } --->>> This is a gallery
-
-        console.log("STATE DATA in render", this.state.data)
 
         return (<li>
 

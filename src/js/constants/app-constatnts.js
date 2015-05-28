@@ -14,5 +14,6 @@ module.exports = {
     NAVIGATE:"navigateStart",
     NAVIGATE_END:"navigateEnd",
     NAVIGATE_START:"navigateStart",
-    LOADING_STATE_CHANGE: "loadingStateChange"
+    LOADING_STATE_CHANGE: "loadingStateChange",
+    SCREEN_RESIZED:"screenResized"
 }

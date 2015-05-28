@@ -18,6 +18,11 @@ var AppActions = {
     navigateEnd:function(){
         console.log("app-actions - Actions navigate end...")
         AppDispatcher.handleViewAction({actionType:AppConstants.NAVIGATE_END, value:null})
+    },
+
+    screenResized:function(){
+        var value = {"width": window.innerWidth, "height":window.innerHeight}
+        AppDispatcher.handleViewAction({actionType:AppConstants.SCREEN_RESIZED, value:value})
     }
 }
 

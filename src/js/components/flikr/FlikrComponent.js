@@ -140,24 +140,15 @@ var FlikrComponent = React.createClass({
     componentWillMount:function(){
         Store.addChangeListener(this._onStoreChange)
     },
-<<<<<<< HEAD
-=======
-
->>>>>>> 4483fa5b3d07a1ac7e9252eace094acf5b105baf
     componentWillUnmount:function(){
         Store.removeChangeListener(this._onStoreChange)
     },
     componentDidMount:function(){
         Store.loadPublicGalleries();
         Store.loadPublicGalleriesGetImages(this.props.gallery);
-<<<<<<< HEAD
         if(this.props.galleryImage){
             _handleMainImageChange (this.props.galleryImage);
         }
-=======
-        var _gallImage = this.props.galleryImage
-        window.setTimeout(function(){ Store.loadMainImage(_gallImage) }, 3000)
->>>>>>> 4483fa5b3d07a1ac7e9252eace094acf5b105baf
     },
     _onStoreChange:function(){
             this.setState({"gallery": this.props.gallery,
@@ -242,20 +233,23 @@ var FlikrGalleries = React.createClass({
     var _galleries = Store.getPublicGalleries();
     //console.log(" _galleries ---------- ",_galleries)
         return (
-            <div>
-                <h3>Here are the galleries----</h3>
-                {_galleries.map(function(d,i) {
-                        return <FlikrGalleryCell data = {d} key = {d.id} />;
-                })}
+            <div className="flikr-gallery-holder">
+                <h3>Here are the galleries----  </h3>
+                <ul className="flikr-gallery-list">
+                    {_galleries.map(function(d,i) {
+                            return <FlikrGalleryCell data = {d} key = {d.id} />;
+                    })}
+                </ul>
             </div>
             )
     }
 });
-
 FlikrGalleryCell = React.createClass({
     getInitialState:function(){
         return {
-            data:{title:{_content:"loading"}}
+            data:{
+                title:{_content:"loading"},
+            primary_photo_extras:{height_sq: 75, width_sq:75, url_sq:'../img/loadinfo.net.gif'}}
         }
     },
     componentDidMount:function(){
@@ -264,14 +258,21 @@ FlikrGalleryCell = React.createClass({
         });
     },
     getLinkUrl:function(){
-        return this.state.data.id
+        return this.state.data.id;
     },
 
     render:function(){
-//    console.log("STATE DATA ", this.state.data);
-    return (<li>
-        {this.state.data.title._content } ----This is a gallery
-        <Link href={ this.getLinkUrl() } > Go to gallery</Link>
+//
+//            <p>{this.state.data.primary_photo_extras.url_s}</p>
+   //     {this.state.data.title._content } --->>> This is a gallery
+
+        console.log("STATE DATA in render", this.state.data)
+
+        return (<li>
+
+        <Link href={ this.getLinkUrl() } >
+            <img src={this.state.data.primary_photo_extras.url_sq} />
+        </Link>
     </li>)
     }
 });

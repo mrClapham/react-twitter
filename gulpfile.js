@@ -43,5 +43,5 @@ gulp.task('default', ['browserify', 'copy', 'less', 'watch']);
 
 gulp.task('watch', function(){
     livereload.listen();
-    gulp.watch('src/**/*.*', ['default']);
+    gulp.watch('src/**/*.*', { interval: 500 }, ['default']);
 });

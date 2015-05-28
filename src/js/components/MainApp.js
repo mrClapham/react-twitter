@@ -1,19 +1,19 @@
 /** @jsx React.DOM */
 
-var React               = require('react');
-var Router              = require('react-router-component');
-var UserPage            = require('../components/UserPage');
-var MainPage            = require('../components/MainPage');
-var FlikrPage           = require('../components/flikr/FlikrComponent');
-var Experiments         = require('../components/experiments/Experiments');
-var FlockExperiments    = require('../components/experiments/FlockExperiment');
-var AppActions          = require('../actions/app-actions');
+var React                   = require('react');
+var Router                  = require('react-router-component');
+var UserPage                = require('../components/UserPage');
+var MainPage                = require('../components/MainPage');
+var FlikrPage               = require('../components/flikr/FlikrComponent');
+var Experiments             = require('../components/experiments/Experiments');
+var FlockExperiments        = require('../components/experiments/FlockExperiment');
+var SpirographExperiments   = require('../components/experiments/SpirographExperiments');
+var AppActions              = require('../actions/app-actions');
 
-var NotFound            = Router.NotFound;
-var NotFoundPage        = require('../components/NotFoundPage');
-var Locations           = React.createFactory(Router.Locations);
-var Location            = React.createFactory(Router.Location);
-
+var NotFound                = Router.NotFound;
+var NotFoundPage            = require('../components/NotFoundPage');
+var Locations               = React.createFactory(Router.Locations);
+var Location                = React.createFactory(Router.Location);
 var MainApp = React.createClass({
     onStartNavigate : function(e) {
         console.log("Nav Function started ",e);
@@ -35,6 +35,7 @@ var MainApp = React.createClass({
                 <Location path="/flikr(/*)" handler={FlikrGalleries} />
                 <Location path="/experiments/" handler={Experiments} />
                 <Location path="/experiments/flock/" handler={FlockExperiments} />
+                <Location path="/experiments/spirograph/" handler={SpirographExperiments} />
                 <NotFound handler={NotFoundPage} />
             </Locations>
            </div>

@@ -33,12 +33,10 @@ var Flock = React.createClass({
     render:function(){
         return <div id="boids">
         <h1>HELLO FROM THE FLOCK</h1>
-        <h1>HELLO FROM THE MAIN PAGE </h1>
 1>
         </div>
     }
 })
-
 
 
 module.exports = MainPage;

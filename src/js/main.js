@@ -4,12 +4,11 @@ var APP                 = require('./components/app');
 var GenericButton       = require('./components/GenericButton');
 var Navigagtion         = require('./components/navigation');
 var MainApp             = require('./components/MainApp');
-var PreloadApp           = require('./components/Preloader');
+//var PreloadApp           = require('./components/Preloader');
 var FlikrComponent      = require('./components/flikr/FlikrComponent')
 
 var React               = require('react');
 var Flux                = require('flux');
-
 
 
 React.render(
@@ -19,12 +18,12 @@ React.render(
 
 
 
-
 React.render(
     <Navigagtion  />,
     document.getElementById("navigation")
 );
 
-React.render(
-    <PreloadApp />,     document.getElementById("preload")
-)
+//React.render(
+//    <PreloadApp />,     document.getElementById("preload")
+//)
+

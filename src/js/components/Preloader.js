@@ -6,19 +6,17 @@ var Store = require("../stores/app-store");
 var PreloaderApp = React.createClass({
     _show:function(){
         this.setProps({'showing': true} )
-        var _this = this
+        var _this = this;
        if(Store.getIsLoading() === false){
            window.setTimeout(function(){
                console.log("Showing changed --- preloader",_this.props.showing )
-               _this.setProps({'showing': Store.getIsLoading()} )
-
-           }, 200)
+               _this.setProps({'showing': Store.getIsLoading()} );
+           }, 200);
        }
     },
     getInitialState:function(){
         return {showing:Store.getIsLoading()}
     },
-
     getDefaultProps:function(){
         return {showing:Store.getIsLoading()}
     },
@@ -32,7 +30,7 @@ var PreloaderApp = React.createClass({
         Store.removeChangeListener(this._show)
     },
     render:function(){
-        return   <div id = 'preloader' className={this.props.showing ? 'loading' : 'loaded'}>
+        return   <div id = 'preloader' >
             <h1>load</h1>
             <h1>load</h1>
             <h1>load</h1>
@@ -48,3 +46,4 @@ var PreloaderApp = React.createClass({
 })
 
 module.exports = PreloaderApp;
+

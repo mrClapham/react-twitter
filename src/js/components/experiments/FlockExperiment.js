@@ -27,7 +27,7 @@ var Flock = React.createClass({
     },
     componentDidMount:function(){
         this.props.flockHolder = document.getElementById("boids-flock")
-        this.props._flock = new BoidFlock(this.props.flockHolder, {flockSize:200, width:1140, height:900, backgroundColour:{r:200,g:0,b:0} });
+        this.props._flock = new BoidFlock(this.props.flockHolder, {flockSize:200, width:1140, height:900, backgroundColour:{r:41,g:41,b:41} });
         this.props._flock.setAttractorGrid(4, 4);
     },
     render:function(){
@@ -36,7 +36,6 @@ var Flock = React.createClass({
         </div>
     }
 })
-
 
 
 module.exports = FlockExperiment;

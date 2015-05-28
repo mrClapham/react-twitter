@@ -47,12 +47,12 @@ var _flickrConfigPublicGalleriesCollection = {
     user_id: user_id
 }
 
-
 var _flickrConfigPublicGalleries = {
     method: publicGalleriesMethod,
     format: 'json',
     api_key : api_key,
-    user_id: user_id
+    user_id: user_id,
+    primary_photo_extras: "path_alias, url_sq, url_t, url_s, url_m, url_o"
 }
 
 var _flickrConfigPublicGalleriesGetPhotos = {
@@ -133,7 +133,7 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
             return json;
         });
     },
-     loadPublicGalleries:function(){
+    loadPublicGalleries:function(){
         JSONP(_flickrStandardRestMethod,_flickrConfigPublicGalleries,'jsoncallback',function(json){
             _publicGalleries = json.photosets.photoset;
             AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);

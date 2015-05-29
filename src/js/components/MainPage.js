@@ -8,6 +8,7 @@ var BoidFlock = require('../libs/BoidFlock');
 
 var MainPage = React.createClass({
     proptypes:{},
+
     handleClick:function(){
         AppActions.testAction(1);
     },
@@ -34,6 +35,9 @@ var MainPageBlurb = React.createClass({
     componentDidMount:function(){
         Store.addChangeListener(this.onChange)
     },
+    componentWillUnmount:function(){
+        Store.removeChangeListener(this.onChange)
+    },
     onChange:function(){
         this.setState({ 'topOffset': Store.getScreenSize().height/5 })
     },
@@ -44,7 +48,11 @@ var MainPageBlurb = React.createClass({
             "transform": this.getOffset(),
             "color": "#ff00ff",
             "width":"300px",
-            "margin":"0 auto"
+            "margin":"0 auto",
+            "WebkitTransition": ".5s ease-in-out",
+            "MozTransition": ".5s ease-in-out",
+            "OTransition": ".5s ease-in-out",
+            "transition": ".5s ease-in-out"
 
         }
     },
@@ -54,28 +62,6 @@ var MainPageBlurb = React.createClass({
             Hello - I'm Graham. Lovely to see you.
         </div>
     }
-
-
 })
-
-////--- Flocking Boids
-//
-//var Flock = React.createClass({
-//    getInitialProps:function(){
-//        return {flockHolder : null, flock: null}
-//    },
-//    componentDidMount:function(){
-//        this.props.flockHolder = document.getElementById("boids")
-//        this.props._flock = new BoidFlock(this.props.flockHolder, {flockSize:200, width:1140, height:900, backgroundColour:{r:200,g:0,b:0} });
-//        //_flock.setAttractorGrid(4, 4);
-//    },
-//    render:function(){
-//        return <div id="boids">
-//        <h1>HELLO FROM THE FLOCK</h1>
-//1>
-//        </div>
-//    }
-//})
-
 
 module.exports = MainPage;

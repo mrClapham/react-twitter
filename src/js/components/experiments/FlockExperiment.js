@@ -23,7 +23,7 @@ var FlockExperiment = React.createClass({
 
 var Flock = React.createClass({
     getDefaultProps:function(){
-        return {flockHolder : null, flock: null, _width:2000}
+        return {flockHolder : null, flock: null, _width:1400}
     },
     getStyle:function(){
     return {"width" : this.props._width+'px', "margin":"0 auto"}
@@ -31,7 +31,7 @@ var Flock = React.createClass({
     componentDidMount:function(){
         console.log("this.props._width ",this.props._width)
         this.props.flockHolder = document.getElementById("boids-flock")
-        this.props._flock = new BoidFlock(this.props.flockHolder, {flockSize:200, width:this.props._width, height:900, backgroundColour:{r:41,g:41,b:41} });
+        this.props._flock = new BoidFlock(this.props.flockHolder, {flockSize:150, width:this.props._width, height:900, backgroundColour:{r:41,g:41,b:41} });
         this.props._flock.setAttractorGrid(4, 4);
     },
     render:function(){

@@ -5,7 +5,7 @@ var browserify = require('gulp-browserify');
 var concat = require('gulp-concat');
 var less = require('gulp-less');
 var path = require('path');
-var livereload  = require('gulp-livereload')
+var livereload  = require('gulp-livereload');
 
 
 
@@ -20,6 +20,7 @@ gulp.task('browserify', function(){
 gulp.task('copy', function(){
     gulp.src(['src/index.html', 'src/static_home.html', 'src/img/**'])
         .pipe(gulp.dest('dist'))
+        .pipe(livereload());
 
     gulp.src(['src/img/**'])
         .pipe(gulp.dest('dist/img/'))

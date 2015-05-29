@@ -1,6 +1,6 @@
 var AppDispatcher = require("../dispatchers/app-dispatcher");
 var AppConstatnts = require("../constants/app-constatnts");
-var merge = require("react/lib/merge");
+//var merge = require("react/lib/merge");
 var assign = require('object-assign');
 
 var EventEmmitter = require("events").EventEmitter;

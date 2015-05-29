@@ -34,17 +34,20 @@ var MainPageBlurb = React.createClass({
     },
     componentDidMount:function(){
         Store.addChangeListener(this.onChange)
+        this.onChange();
     },
     componentWillUnmount:function(){
         Store.removeChangeListener(this.onChange)
     },
     onChange:function(){
+        console.log("Store.getScreenSize().height = ", Store.getScreenSize().height)
+
         this.setState({ 'topOffset': Store.getScreenSize().height/5 })
     },
     getStyle:function(){
         return {
-            "msTransform": this.getOffset(),
-            "webkitTransform": this.getOffset(),
+            "MsTransform": this.getOffset(),
+            "WebkitTransform": this.getOffset(),
             "transform": this.getOffset(),
             "color": "#ff00ff",
             "width":"300px",
@@ -56,10 +59,11 @@ var MainPageBlurb = React.createClass({
 
         }
     },
-
     render:function(){
         return <div style={this.getStyle()}>
-            Hello - I'm Graham. Lovely to see you.
+           <p>Hello - I'm Graham. Lovely to see you.</p>
+           <p>I'm a software engineer.</p>
+           <p>I play the bass.</p>
         </div>
     }
 })

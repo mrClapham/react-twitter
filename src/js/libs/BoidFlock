@@ -14,7 +14,8 @@ var BoidFlock = function(targDiv, opt_config){
         backgroundTransparency:4,
         tweenColours:true,
         colourSteps:100,
-        followMouse:true
+        followMouse:true,
+        playing: true
     }
 
     var _config = opt_config || {};
@@ -38,19 +39,12 @@ var BoidFlock = function(targDiv, opt_config){
             for (var i = 0; i < _privates.flockSize; i++) {
                 _privates.boids[i] = new Boid(sketch.random(sketch.width), sketch.random(sketch.height), sketch, _boidConfig);
             }
-//            var _obsticle   = new Obsticle(200, 500,_privates.boids,sketch, {repulsion:.3} );
-//            var _obsticle2  = new Obsticle(400, 400,_privates.boids, sketch);
-//            _obsticle2.setRepulsion(.003);
-//            var _obsticle3  = new Obsticle(450, 450,_privates.boids, sketch);
-//            _obsticle3.setRepulsion(-.003);
-//            _privates.obsticles       = [_obsticle, _obsticle2, _obsticle3];
             sketch.background(_privates.backgroundColour.r, _privates.backgroundColour.g, _privates.backgroundColour.b, 255);
-
             sketch.addMouseTacer()
-
         }
 
         sketch.draw = function() {
+            if( sketch.getPlaying()== false ) return;
             sketch.background(_privates.backgroundColour.r, _privates.backgroundColour.g, _privates.backgroundColour.b, _privates.backgroundTransparency);
 
             for(var i=0; i<_privates.obsticles.length; i++){
@@ -65,14 +59,10 @@ var BoidFlock = function(targDiv, opt_config){
             sketch.mouseReleased=function(){
                 _privates.mouseTracer.setRepulsion(-.005 )
             }
-
             sketch.mousePressed=function(){
                 _privates.mouseTracer.setRepulsion(.005 )
             }
-
-
             _privates.mouseTracer.render();
-
         }
 
         sketch.getColourTweenArray = function(){
@@ -81,7 +71,6 @@ var BoidFlock = function(targDiv, opt_config){
             }
             return this.colourTweenArray
         }
-
         sketch.addAttractor = function(x,y,opt_config){
             var config = opt_config || {};
             var _obsticle  = new Obsticle(x, y,_privates.boids, sketch, config);
@@ -100,7 +89,16 @@ var BoidFlock = function(targDiv, opt_config){
         sketch.getHeight = function(){
             return _privates.height
         }
-
+        sketch.getPlaying = function(){
+            return _privates.playing
+        }
+        sketch.setPlaying = function(value){
+             _privates.playing = value;
+        }
+        sketch.togglePlay = function(){
+            console.log("TOGGLE PLAY CALLED ----", sketch.getPlaying() )
+            sketch.setPlaying( !sketch.getPlaying() );
+        }
         sketch.setAttractorGrid = function(xDivs, yDivs){
             var xstep = this.getWidth() / (xDivs + 1);
             var ystep = this.getHeight() / (yDivs + 1);
@@ -117,11 +115,9 @@ var BoidFlock = function(targDiv, opt_config){
                 }
                 _grid.push(_rowX)
             }
-
         }
         sketch.addMouseTacer = function(){
             _privates.mouseTracer = new Obsticle(100, 100, _privates.boids, sketch, {repulsion:-.08, excusionZone:80, excusionZone:200})
-            console.log(_privates.mouseTracer)
         }
     }
     return new p5(BoidAttractorClass, targDiv);
@@ -129,7 +125,6 @@ var BoidFlock = function(targDiv, opt_config){
 
 //Static classes
 BoidFlock._onConfigSet = function(conig){
-
     for(var value in arguments[0]){
         //Underscore properties are not to be changed.
         if(String(value).charAt(0) != '_') this[value] = arguments[0][value];
@@ -316,12 +311,6 @@ Boid.prototype.render = function() {
         this.colourStep = 1
     }
     this.currentColour+=this.colourStep
-
-    //console.log( sketch.getColourTweenArray() );
-
-
-
-    //this.sketch.stroke(this.endColour.r, this.endColour.g, this.endColour.b);
     this.sketch.stroke(col.r,col.g,col.b);
     this.sketch.push();
     this.sketch.translate(this.position.x,this.position.y);

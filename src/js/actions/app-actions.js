@@ -9,7 +9,6 @@ var AppActions = {
         AppDispatcher.handleViewAction({actionType:AppConstants.STATE_CHANGE, value:value})
     },
 
-
     navigateStart:function(){
         console.log("app-actions - Actions navigate start ...")
         AppDispatcher.handleViewAction({actionType:AppConstants.NAVIGATE_START, value:null})

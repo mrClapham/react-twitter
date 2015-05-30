@@ -2,7 +2,7 @@
 var React = require('react');
 var AppActions = require("../../actions/app-actions");
 var Store = require("../../stores/app-store");
-
+var Dat = require("dat-gui");
 var SpiroGraph = require('../../libs/Spirograph');
 
 
@@ -34,8 +34,8 @@ var SpirographExperiment = React.createClass({
         return "scale("+_scale+","+_scale+")"
     },
     getStyle:function(){
-        return     {"msTransform": this.getScale(),
-                    "webkitTransform": this.getScale(),
+        return     {"MsTransform": this.getScale(),
+                    "WebkitTransform": this.getScale(),
                     "transform": this.getScale(),
                     "width": this.props.spiroData.width,
                     "margin": "0 auto"
@@ -44,6 +44,12 @@ var SpirographExperiment = React.createClass({
     componentDidMount:function(){
         if(!this.props._spiro) this.props._spiro = new SpiroGraph( 'spirograph-exp' );
         Store.addChangeListener(this.onChange)
+
+        // GUI
+        if (!this.state._gui ) this.state._gui = new Dat.GUI({ autoPlace: true });
+        this.state.customContainer = document.getElementById("datHolder");
+        this.state.customContainer.appendChild(this.state._gui.domElement);
+
     },
     componentWillUnmount:function(){
         Store.removeChangeListener(this.onChange);
@@ -51,8 +57,12 @@ var SpirographExperiment = React.createClass({
 
     render:function(){
         return (
-            <div style={this.getStyle()}>
+            <div>
+                <div id="datHolder">DAT - HOLDER </div>
+
+                <div style={this.getStyle()}>
                 <div id="spirograph-exp"></div>
+            </div>
             </div>
             )
     }

@@ -13,7 +13,7 @@ var Experiments = React.createClass({
     getDefaultProps:function(){
         return {experiment_list:[
             {"title":"Spirograph", link:"/#/experiments/spirograph/", img: '../img/worms.png'},
-            {"title":"Spirograph", link:"/#/experiments/spirograph/", img: '../img/worms.png'},
+            {"title":"Spirograph", link:"/#/experiments/spirograph/", img: '../img/spiro.png'},
             {"title":"Flock of neon worms", link:"/#/experiments/flock/", img: '../img/worms.png'}
         ]
         }
@@ -176,7 +176,7 @@ var ExperimentsHex = React.createClass({
                   <a href={this.props.data.link}>
                       <p style={this.getTypeStyle()}>{this.props.data.title}</p>
                       <p style={this.getTypeStyle()}>{this.props.data.link}</p>
-                      <img src = {"../img/worms.png"} />
+                      <img src = {"../img/spiro.png"} />
                   </a>
               </div>
     }

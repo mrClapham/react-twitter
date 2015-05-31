@@ -148,7 +148,6 @@ var ExperimentsHex = React.createClass({
         return {x:_Xpos, y:_Ypos};
     },
     anim0:function(){
-
         this.setState({'opacity':0});
         this.setState({'leftOffset': Store.getScreenSize().width/2});
     },

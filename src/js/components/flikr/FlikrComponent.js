@@ -95,8 +95,6 @@ var FlickrCell = React.createClass({
 
     },
     componentWillReceiveProps:function(newVal){
-        console.log("FlickrCell componentWillReceiveProps newVal ", newVal)
-
         if(newVal.flikrdata.id != this.state.flikrdata.id){
             this.setState({flikrdata: newVal.flikrdata});
         }
@@ -158,7 +156,6 @@ var FlikrComponent = React.createClass({
     componentWillReceiveProps:function(newProps){
     console.log("componentWillReceiveProps ");
         if(newProps !== this.props){
-            console.log("THE PROPS HAVE CHANGED ",this.props);
             Store.loadPublicGalleriesGetImages(newProps.gallery);
             if(newProps.galleryImage)Store.loadMainImage(newProps.galleryImage);
             FlikrActions.changeGallery(newProps.gallery);
@@ -220,7 +217,7 @@ var FlikrGalleries = React.createClass({
         Store.removeChangeListener(this.onGalleriesChange)
     },
     componentWillReceiveProps:function(oldProps){
-        console.log("FlikrGalleries componentWillReceiveProps oldProps - ",oldProps);
+        //console.log("FlikrGalleries componentWillReceiveProps oldProps - ",oldProps);
     },
     ////:
     onGalleriesChange:function(){
@@ -231,7 +228,6 @@ var FlikrGalleries = React.createClass({
     render:function(){
 
     var _galleries = Store.getPublicGalleries();
-    //console.log(" _galleries ---------- ",_galleries)
         return (
             <div className="flikr-gallery-holder">
                 <h3>Here are the galleries----  </h3>
@@ -252,6 +248,13 @@ FlikrGalleryCell = React.createClass({
             primary_photo_extras:{height_sq: 75, width_sq:75, url_sq:'../img/loadinfo.net.gif'}}
         }
     },
+    getStyle:function(){
+        return {
+        "borderRadius":"50%",
+        "width":"75px",
+        "overflow":"hidden"
+        }
+    },
     componentDidMount:function(){
         this.setState({
             data: this.props.data
@@ -266,7 +269,9 @@ FlikrGalleryCell = React.createClass({
         return (<li>
 
         <Link href={ this.getLinkUrl() } >
+            <div style={this.getStyle()}>
             <img src={this.state.data.primary_photo_extras.url_sq} />
+            </div>
         </Link>
     </li>)
     }
@@ -294,8 +299,6 @@ FlikrMainImage = React.createClass({
         Store.removeChangeListener(this._onMainImageChanged)
     },
     _onMainImageChanged:function(e){
-        //console.log("_onMainImageChanged >>>",e, Store.getMainImage())
-
        if( Store.getMainImage() ) this.setState({'flikrdata': Store.getMainImage() })
     },
     render:function(){

@@ -16,7 +16,7 @@ var MainPage = React.createClass({
         Store.addChangeListener(this.onChange)
     },
     onChange:function(){
-
+            //-- not currently needed, just a dummy callback
     },
     render:function(){
         return <div class="main-page">
@@ -27,17 +27,20 @@ var MainPage = React.createClass({
 
 var MainPageBlurb = React.createClass({
     getInitialState:function(){
-        return {topOffset: Store.getScreenSize().height/5 }
+        return {topOffset: 100 }
+    },
+    getLeftOffset:function(){
+        return (Store.getScreenSize().width - this.getWidthStyle() )/2
     },
     getOffset:function(){
-        return "translate(100px,"+this.state.topOffset+"px)"
+        return "translate("+this.getLeftOffset()+"px,"+this.state.topOffset+"px)"
     },
     configs:[
         {   topOffset:1000,
             leftOffset:100,
             opacity:0,
             animationDelays:[500, 1000, 1500, 2000],
-            leftDest:200,
+            leftDest:0,
             topDest:0,
             copy:"Hello, I'm Graham"
         },
@@ -45,7 +48,7 @@ var MainPageBlurb = React.createClass({
             leftOffset:100,
             opacity:0,
             animationDelays:[1000, 1500, 2000, 2500],
-            leftDest:200,
+            leftDest:0,
             topDest:20,
             copy:"I'm a software engineer"
         },
@@ -53,7 +56,7 @@ var MainPageBlurb = React.createClass({
             leftOffset:100,
             opacity:0,
             animationDelays:[1500, 2000, 2500, 3000],
-            leftDest:200,
+            leftDest:0,
             topDest:40,
             copy:"This is my site."
         },
@@ -61,7 +64,7 @@ var MainPageBlurb = React.createClass({
             leftOffset:100,
             opacity:0,
             animationDelays:[1500, 2000, 2500, 3000],
-            leftDest:200,
+            leftDest:0,
             topDest:60,
             copy:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         }
@@ -78,14 +81,17 @@ var MainPageBlurb = React.createClass({
         console.log("Store.getScreenSize().height = ", Store.getScreenSize().height)
         this.setState({ 'topOffset': Store.getScreenSize().height/5 })
     },
+    getWidthStyle:function(){
+        return Store.getScreenSize().width > 1000 ? 700 : Store.getScreenSize().width/2;
+    },
     getStyle:function(){
         return {
             "MsTransform": this.getOffset(),
             "WebkitTransform": this.getOffset(),
             "transform": this.getOffset(),
             "color": "#cccccc",
-            "fontSize":"20px",
-            "width":"300px",
+            "fontSize":"18px",
+            "width":this.getWidthStyle()+"px",
             "WebkitTransition": ".5s ease-in-out",
             "MozTransition": ".5s ease-in-out",
             "OTransition": ".5s ease-in-out",
@@ -113,6 +119,7 @@ var IntroCell = React.createClass({
     getInitialState:function(){
         return {topOffset:1000,
             leftOffset:100,
+            width:"100%",
             opacity:0,
             animationDelays:[500, 1000, 1500, 2000],
             leftDest:200,
@@ -153,7 +160,7 @@ var IntroCell = React.createClass({
             "transform": this.getOffset(),
             "color": "#cccccc",
             "fontSize":"20px",
-            "width":"300px",
+            "width":"100%",
             "opacity":this.getOpacity(),
             "WebkitTransition": ".5s ease-in-out",
             "MozTransition": ".5s ease-in-out",
@@ -168,19 +175,15 @@ var IntroCell = React.createClass({
         this.state.ani3 = setTimeout(this.anim3, this.state.animationDelays[3])
     },
     anim0:function(){
-        console.log("--Ani0 ")
         this.setOpacity(.7)
     },
     anim1:function(){
-        console.log("--Ani1 ")
         this.setLeftOffset(this.state.leftDest);
     },
     anim2:function(){
-        console.log("--Ani2")
         this.setTopOffset(this.state.topDest);
     },
     anim3:function(){
-        console.log("--Ani3 ")
         this.setOpacity(.41)
     },
     render:function(){

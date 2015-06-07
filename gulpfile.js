@@ -29,22 +29,43 @@ gulp.task('browserify', function(){
             watcher.bundle() // Create new bundle that uses the cache for high performance
                 gulp.src('src/js/main.js')
                 // This is where you add uglifying etc.
-                .pipe(gulp.dest('./build/'));
+                    .pipe(gulp.dest('dist/js')) // this looks like repetition - but it's for the first run
             console.log('Updated!', (Date.now() - updateStart) + 'ms');
         })
         .bundle() // Create the initial bundle when starting the task
         .pipe(source('main.js'))
         .pipe(gulp.dest('dist/js'))
-
-
-
-//
-//    gulp.src('src/js/main.js')
-//        .pipe(plumber())
-//        .pipe(browserify({transform: 'reactify'}))
-//        .pipe(concat('main.js'))
-//        .pipe(gulp.dest('dist/js'))
 });
+
+
+gulp.task('test', function(){
+    var bundler = browserify({
+        entries: ['./test/bundle/test-entry.js'], // Only need initial file, browserify finds the deps
+        transform: [reactify], // We want to convert JSX to normal javascript
+        debug: true, // Gives us sourcemapping
+        cache: {}, packageCache: {}, fullPaths: true // Requirement of watchify
+    });
+    var watcher  = watchify(bundler);
+
+    return watcher
+        .on('update', function () { // When any files update
+            var updateStart = Date.now();
+            console.log('tests Updating!');
+            watcher.bundle() // Create new bundle that uses the cache for high performance
+            gulp.src('test/bundle/test-entry.js')
+                // This is where you add uglifying etc.
+                .pipe(gulp.dest('test/bundle/test-bundle.js')) // this looks like repetition - but it's for the first run
+            console.log('Updated tests!', (Date.now() - updateStart) + 'ms');
+        })
+        .bundle() // Create the initial bundle when starting the task
+        .pipe(source('test-entry.js'))
+        .pipe(gulp.dest('test/bundle'))
+});
+
+
+
+
+
 
 gulp.task('copy', function(){
     gulp.src(['src/index.html', 'src/static_home.html', 'src/img/**'])

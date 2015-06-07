@@ -25,7 +25,7 @@ var Navigagtion = React.createClass({
                        <span className="icon-bar"></span>
                        <span className="icon-bar"></span>
                    </button>
-                   <a className="navbar-brand" href="#">Graham Clapham</a>
+                   <a className="navbar-brand" href="#">Mr Graham Clapham</a>
                </div>
                <div id="navbar" className="navbar-collapse collapse">
                    <ul className="nav navbar-nav">

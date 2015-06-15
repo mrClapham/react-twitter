@@ -25,6 +25,8 @@ var publicGalleriesGetPhotosMethod = "flickr.photosets.getPhotos";
 var _page = 1;
 var _perPage = 30;
 
+
+
 onFlikrNavigate = function(value){
     console.log("Flikr Store -- onNavigate --  ", value);
 }
@@ -106,9 +108,6 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     },
     onFlikrGalleryChanged:function(value){
         console.log("THE FLIKR GALLERY IS CHANGE IN -- event ",value)
-    },
-    onFlikrResultChanged:function(value){
-
     },
     onFlikrMainImagechanged:function(value){
         console.log("THE FLIKR IMAGE IS CHANGE IN -- event ",value)

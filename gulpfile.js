@@ -4,6 +4,7 @@ var plumber = require('gulp-plumber');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream'); // Used to stream bundle for further handling
 var reactify = require('reactify');
+var babelify = require("babelify");
 var watchify = require('watchify');
 var concat = require('gulp-concat');
 var rewireify = require('rewireify');

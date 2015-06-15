@@ -1,5 +1,7 @@
 // using React v0.12.2
 // -- needs jQuery and I want to avid it --var BootstrapDropdown   = require('bootstrap/js/dropdown')
+'use strict';
+
 var APP                 = require('./components/app');
 var GenericButton       = require('./components/GenericButton');
 var Navigagtion         = require('./components/navigation');

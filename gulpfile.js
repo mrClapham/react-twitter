@@ -41,29 +41,35 @@ gulp.task('browserify', function(){
 
 gulp.task('test', function(){
     var _entry = "./test/test-suite.js";
+    var _dest = "./test/";
 
     var tests_bundler = browserify({
         entries: [_entry], // Only need initial file, browserify finds the deps
         transform: [reactify], // We want to convert JSX to normal javascript
         debug: true, // Gives us sourcemapping
         cache: {}, packageCache: {}, fullPaths: true // Requirement of watchify
-    });
-    var tests_watcher  = watchify(tests_bundler);
+    }).bundle()
+        .pipe(source('test-bundle.js'))
+        .pipe(gulp.dest('test'))
 
-    return tests_watcher
-        .on('update', function () { // When any files update
-            var updateStart = Date.now();
-            console.log('tests Updating!');
-            tests_watcher.bundle() // Create new bundle that uses the cache for high performance
-            gulp.src(_entry)
-                // This is where you add uglifying etc.
-                .pipe(gulp.dest(_entry)) // this looks like repetition - but it's for the first run
-            console.log('Updated tests!', (Date.now() - updateStart) + 'ms');
-        })
-        .bundle() // Create the initial bundle when starting the task
-        .pipe(plumber())
-        .pipe(source('test-main.js'))
-        .pipe(gulp.dest('test/bundle'))
+    return tests_bundler
+
+    //var tests_watcher  = watchify(tests_bundler);
+    //
+    //return tests_watcher
+    //    .on('update'  , function (ids) { // When any files update
+    //        var updateStart = Date.now();
+    //        console.log('tests Updating! ',ids);
+    //        tests_watcher.bundle() // Create new bundle that uses the cache for high performance
+    //        gulp.src(_entry)
+    //            // This is where you add uglifying etc.
+    //            .pipe(gulp.dest("test")) // this looks like repetition - but it's for the first run
+    //        console.log('Updated tests!', (Date.now() - updateStart) + 'ms');
+    //    })
+    //    .bundle() // Create the initial bundle when starting the task
+    //    .pipe(plumber())
+    //    .pipe(source('test-bundle.js'))
+    //    .pipe(gulp.dest('test'))
 });
 
 
@@ -95,4 +101,8 @@ gulp.task('default', ['browserify', 'copy', 'less', 'watch']);
 gulp.task('watch', function(){
     livereload.listen();
     gulp.watch('src/**/*.*', { interval: 500 }, ['default']);
+});
+
+gulp.task('watch-tests', function(){
+    gulp.watch('test/**/*.Spec.js', { interval: 500 }, ['test']);
 });

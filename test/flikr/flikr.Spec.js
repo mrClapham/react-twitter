@@ -3,6 +3,6 @@ describe("Bogus test ", function(){
         expect(true).toBe(true);
     })
      it("should fail the test", function(){
-        expect(true).toBe(false);
+        expect(false).toBe(false);
     })
 })

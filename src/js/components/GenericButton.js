@@ -14,5 +14,4 @@ var GenericButton = React.createClass({
 
 })
 
-
 module.exports = GenericButton;

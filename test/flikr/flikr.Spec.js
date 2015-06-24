@@ -1,10 +1,9 @@
-var React           = require('react');
+/** @jsx React.DOM */
 
+var React           = require('react');
 var ReactAddons    = require('react/addons'); // You also need to require the addons
 var ReactTestUtils = React.addons.TestUtils ; // <- YEAH!
-
 var GenericButton   = require('../../src/js/components/GenericButton.js');
-
 
 describe("Bogus test ", function(){
     it("Should pass the test", function(){
@@ -35,6 +34,7 @@ describe("Test the GenericButon", function(){
 
     it("GenericButton be display the text Click Me!.", function(){
         var heading = ReactTestUtils.findRenderedDOMComponentWithTag(genericButtonInstance, "button");
-        expect(heading.getDOMNode().textContent).toBe("Click Me!.");
+        expect(heading.getDOMNode().textContent).toBe("Click Me!");
     })
-})
+});
+

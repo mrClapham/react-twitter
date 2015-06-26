@@ -208,7 +208,7 @@ var _handleMainImageChange = function(galleryInageId){
 var FlikrGalleries = React.createClass({
 
     getInitialState:function(){
-        return { galleries:Store.getPublicGalleries() };
+        return {galleries:Store.getPublicGalleries() };
     },
     componentWillMount:function(){
         //--
@@ -217,7 +217,12 @@ var FlikrGalleries = React.createClass({
         this.setState({
             flikrdata: this.props.flikrdata
         });
-        Store.addChangeListener(this.onGalleriesChange)
+        Store.addChangeListener(this.onGalleriesChange);
+        try{
+            FlikrActions.gridUpGallery();
+        }catch(e){
+            //----
+        }
     },
     componentWillUnmount:function(){
         Store.removeChangeListener(this.onGalleriesChange)
@@ -227,8 +232,8 @@ var FlikrGalleries = React.createClass({
     },
     ////:
     onGalleriesChange:function(){
-       // galleries:Store.getPublicGalleries()
-        this.setState({galleries:Store.getPublicGalleries()})
+        this.setState({galleries:Store.getPublicGalleries()});
+        FlikrActions.gridUpGallery();
     },
 
     render:function(){
@@ -253,23 +258,34 @@ var FlikrGalleries = React.createClass({
 FlikrGalleryCell = React.createClass({
     getInitialState:function(){
         return {
+            width:75,
             data:{
                 title:{_content:"loading"},
             primary_photo_extras:{height_sq: 75, width_sq:75, url_sq:'../img/loadinfo.net.gif'}}
         }
     },
+    getOffset:function(){
+        return "translate("+this.state.width*this.state.data.x+"px,"+this.state.width*this.state.data.y+"px)";
+    },
     getStyle:function(){
         return {
-        "borderRadius":"50%",
-        "width":"75px",
-        "overflow":"hidden"
+            "borderRadius":"50%",
+            "width":"75px",
+            "overflow":"hidden",
+            "position":"absolute",
+            "WebkitTransition": ".5s ease-in",
+            "MozTransition": ".5s ease-in",
+            "OTransition": ".5s ease-in",
+            "transition": ".5s ease-in",
+            "MsTransform": this.getOffset(),
+            "WebkitTransform": this.getOffset(),
+            "transform": this.getOffset()
         }
     },
     componentDidMount:function(){
         this.setState({
             data: this.props.data
         });
-        FlikrActions.gridUpGallery();
     },
     getLinkUrl:function(){
         return this.state.data.id;
@@ -277,10 +293,10 @@ FlikrGalleryCell = React.createClass({
 
     render:function(){
 
-        return (<li>
+        return (<li style={this.getStyle()}>
 
         <Link href={ this.getLinkUrl() } >
-            <div style={this.getStyle()}>
+            <div>
             <img src={this.state.data.primary_photo_extras.url_sq} />
             </div>
         </Link>

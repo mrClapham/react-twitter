@@ -25,7 +25,9 @@ var publicGalleriesGetPhotosMethod = "flickr.photosets.getPhotos";
 var _page = 1;
 var _perPage = 30;
 
+// for the layout of the grid
 
+var _gridSpacing = 50;
 
 onFlikrNavigate = function(value){
     console.log("Flikr Store -- onNavigate --  ", value);

@@ -51,7 +51,7 @@ var Experiments = React.createClass({
     },
     getOffset:function(){
 
-    var _xpos = (Store.getScreenSize().width/2) - (this.state.width/2)
+        var _xpos = (Store.getScreenSize().width/2) - (this.state.width/2)
         console.log("THE X POSITION IS ___ ",_xpos);
         return "translate("+_xpos+"px,"+this.state.topOffset+"px)";
         //return "translate(200px, 200px)";

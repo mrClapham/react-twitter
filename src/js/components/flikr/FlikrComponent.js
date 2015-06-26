@@ -202,7 +202,6 @@ var _handleMainImageChange = function(galleryInageId){
     AppDispatcher.handleViewAction(AppConstatnts.FLIKR_MAINIMAGE_CHANGED, galleryInageId);
 }
 
-
 // --- the galleries
 
 var FlikrGalleries = React.createClass({
@@ -233,12 +232,12 @@ var FlikrGalleries = React.createClass({
     ////:
     onGalleriesChange:function(){
         this.setState({galleries:Store.getPublicGalleries()});
-        FlikrActions.gridUpGallery();
     },
 
     render:function(){
 
     var _galleries = Store.getPublicGalleries();
+
         return (
             <div className="flikr-gallery-holder">
                 <h3>Here are the galleries----  </h3>
@@ -260,6 +259,8 @@ FlikrGalleryCell = React.createClass({
         return {
             width:75,
             data:{
+                x:0,
+                y:0,
                 title:{_content:"loading"},
             primary_photo_extras:{height_sq: 75, width_sq:75, url_sq:'../img/loadinfo.net.gif'}}
         }

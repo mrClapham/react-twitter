@@ -1,14 +1,17 @@
 /**
  * Flikr-store Created by grahamcapham on 10/05/2015.
  */
+
+'use strict';
+
 var AppDispatcher = require("../dispatchers/app-dispatcher");
 var AppConstatnts = require("../constants/app-constatnts");
 var assign = require('object-assign');
+var FlikrActions = require("../actions/FlikrActions");
+
 var EventEmmitter = require("events").EventEmitter;
 require('../utils/JSONP');
-// var FlikrApi = require('../utils/FlickrApi');
 
-require('../utils/JSONP');
 var Q = require('q');
 
 var FLIKR_CHANGE_EVENT = "FlikrchangeEvenet";
@@ -29,7 +32,7 @@ var _perPage = 30;
 
 var _gridSpacing = 50;
 
-onFlikrNavigate = function(value){
+var onFlikrNavigate = function(value){
     console.log("Flikr Store -- onNavigate --  ", value);
 }
 
@@ -137,9 +140,25 @@ var FlikrStore = assign({}, EventEmmitter.prototype, {
     loadPublicGalleries:function(){
         JSONP(_flickrStandardRestMethod,_flickrConfigPublicGalleries,'jsoncallback',function(json){
             _publicGalleries = json.photosets.photoset;
+            FlikrStore.gridUpGallery(_publicGalleries);
             AppDispatcher.handleViewAction(AppConstatnts.FLICKR_STORE_UPDATED, json);
             return json;
         });
+    },
+    gridUpGallery:function(value) {
+            console.log("THE AMMOUNT OF IMAGES IN THE GALLERY ARE ",value.length)
+            let _gridLength = Math.ceil(Math.sqrt(this.getPublicGalleries().length)), xPos=0,yPos=0;
+            this.getPublicGalleries().map( function(d,i){
+                d.x=xPos; d.y=yPos
+
+                if(xPos < _gridLength){
+                    xPos++
+                }else{
+                    xPos= 0;
+                    yPos++;
+                }
+            });
+        return
     },
     loadPublicGalleriesGetImages:function(id){
         if(_galleryId === id) return

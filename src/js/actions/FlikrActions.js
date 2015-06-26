@@ -18,22 +18,6 @@ var FlikrActions = {
     changeMainImage:function(value){
         console.log("Action - IMAGE ")
         AppDispatcher.handleViewAction(AppConstants.FLIKR_MAINIMAGE_CHANGED, value);
-    },
-    gridUpGallery:function() {
-        if (Store.getPublicGalleries()) {
-            console.log("THE AMMOUNT OF IMAGES IN THE GALLERY ARE ",Store.getPublicGalleries().length)
-            let _gridLength = Math.ceil(Math.sqrt(Store.getPublicGalleries().length)), xPos=0,yPos=0;
-            Store.getPublicGalleries().map( function(d,i){
-                d.x=xPos; d.y=yPos
-
-                if(xPos < _gridLength){
-                    xPos++
-                }else{
-                    xPos= 0;
-                    yPos++;
-                }
-            });
-        }
     }
 }
 

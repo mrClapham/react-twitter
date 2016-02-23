@@ -4,7 +4,6 @@ var AppActions = require("../../actions/app-actions");
 var Store = require("../../stores/app-store");
 
 
-
 var Experiments = React.createClass({
     proptypes:{},
     getInitialState:function(){
@@ -14,7 +13,8 @@ var Experiments = React.createClass({
         return {experiment_list:[
             {"title":"Spirograph", link:"/#/experiments/spirograph/", img: '../img/worms.png'},
             {"title":"Spirograph", link:"/#/experiments/spirograph/", img: '../img/spiro.png'},
-            {"title":"Flock of neon worms", link:"/#/experiments/flock/", img: '../img/worms.png'}
+            {"title":"Flock of neon worms", link:"/#/experiments/flock/", img: '../img/worms.png'},
+            {"title":"3d", link:"/#/experiments/3d/", img: '../img/worms.png'}
         ]
         }
     },
@@ -63,7 +63,7 @@ var Experiments = React.createClass({
                 <p>These are a few ongoiong experiments, playing with javaScript.</p>
             </div>
         {this.props.experiment_list.map(function(d,i){
-            return  <ExperimentsHex data={d} key={i} index={i} siblingLength ={3} />
+            return  <ExperimentsHex data={d} key={i} index={i} siblingLength ={4} />
         })}
         </div>
     }

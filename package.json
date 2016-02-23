@@ -14,7 +14,7 @@
     "es6-promises": "^1.0.10",
     "express": "*4.11.0",
     "flux": "*2.0.1",
-    "gulp": "*3.8.11",
+    "gulp": "*3.9.0",
     "gulp-browserify": "*0.5.1",
     "gulp-concat": "*2.5.2",
     "gulp-embedlr": "*0.5.2",

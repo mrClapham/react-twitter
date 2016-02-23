@@ -8,6 +8,7 @@ var FlikrPage               = require('../components/flikr/FlikrComponent');
 var Experiments             = require('../components/experiments/Experiments');
 var FlockExperiments        = require('../components/experiments/FlockExperiment');
 var SpirographExperiments   = require('../components/experiments/SpirographExperiments');
+var ThreeDeeExperiment      = require('../components/experiments/ThreeDeeExperiment');
 var AppActions              = require('../actions/app-actions');
 
 var NotFound                = Router.NotFound;
@@ -45,6 +46,7 @@ render: function() {
                 <Location path="/experiments/" handler={Experiments} />
                 <Location path="/experiments/flock/" handler={FlockExperiments} />
                 <Location path="/experiments/spirograph/" handler={SpirographExperiments} />
+                <Location path="/experiments/3d/" handler={ThreeDeeExperiment} />
                 <NotFound handler={NotFoundPage} />
             </Locations>
            </div>
